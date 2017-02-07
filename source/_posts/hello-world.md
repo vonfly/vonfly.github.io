@@ -29,7 +29,7 @@ $ git config --global user.email "your e-mail"
 
 前往Github网站，注册一个新用户。创建一个新的repository
 
-在自己的Github主页右上角的加号,创建一个新的repository。比如我的Github用户名为dongfangpiaoyang，那么我创建的repository的名字应该是 dongfangpiaoyang.github.io
+在自己的Github主页右上角的加号,创建一个新的repository。比如我的Github用户名为vonfly，那么我创建的repository的名字应该是 vonfly.github.io
 
 
 ### 给本机配置SSH-Key
@@ -124,7 +124,7 @@ $ git clone https://github.com/iissnan/hexo-theme-next themes/next
 ``` bash
 deploy:
   type: git
-  repository: https://github.com/dongfangpiaoyang/dongfangpiaoyang.github.io.git
+  repository: https://github.com/vonfly/vonfly.github.io.git
   branch: master
 ```
 
@@ -151,4 +151,4 @@ $ npm install hexo-deployer-git --save
 $ hexo deploy
 ```
 
-直接在浏览器访问dongfangpiaoyang.github.io试试
+直接在浏览器访问vonfly.github.io试试

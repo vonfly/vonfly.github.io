@@ -17,7 +17,7 @@ tags:
 ``` bash
 $ git init
 $ git checkout -b hexo
-$ git remote add origin git@github.com:dongfangpiaoyang（你自己giuhub账号名）/dongfangpiaoyang.github.io（项目名）.git
+$ git remote add origin git@github.com:vonfly（你自己giuhub账号名）/vonfly.github.io（项目名）.git
 $ git add .
 $ git commit -m "提交说明"
 $ git push origin hexo
@@ -47,13 +47,13 @@ public/
 扩展：
 ### github常见操作和常见错误！
 
-#### 如果输入$ git remote add origin git@github.com:dongfangpiaoyang（github帐号名）/dongfangpiaoyang.github.io（项目名）.git
+#### 如果输入$ git remote add origin git@github.com:vonfly（github帐号名）/vonfly.github.io（项目名）.git
 
 提示出错信息：fatal: remote origin already exists.
 
 解决办法如下：
     1、先输入$ git remote rm origin
-    2、再输入$ git remote add origin git@github.com:dongfangpiaoyang/dongfangpiaoyang.github.io.git 就不会报错了！
+    2、再输入$ git remote add origin git@github.com:vonfly/vonfly.github.io.git 就不会报错了！
 
 #### 如果输入$ git remote rm origin 还是报错的话，
 error: Could not remove config section 'remote.origin'. 我们需要修改gitconfig文件的内容
@@ -67,4 +67,4 @@ error: Could not remove config section 'remote.origin'. 我们需要修改gitcon
     1、先输入$ git pull origin master //先把远程服务器github上面的文件拉下来
     2、再输入$ git push origin master
     3、如果出现报错 fatal: Couldn't find remote ref master或者fatal: 'origin' does not appear to be a git repository以及fatal: Could not read from remote repository.
-    4、则需要重新输入$ git remote add origin git@github.com:dongfangpiaoyang/dongfangpiaoyang.github.io.git
+    4、则需要重新输入$ git remote add origin git@github.com:vonfly/vonfly.github.io.git
