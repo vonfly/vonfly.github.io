@@ -75,4 +75,4 @@ duoshuo_hotartical: true
 deploy:
   type: git
   repository: https://github.com/vonfly/vonfly.github.io.git
-  branch: hexo
+  branch: master
