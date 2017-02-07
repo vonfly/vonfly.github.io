@@ -80,9 +80,9 @@ $ npm install
 
 ``` bash
 ├── _config.yml //网站的配置信息（也就是站点配置文件）
-├── package.json
+├── package.json //应用程序数据，指明hexo的版本等信息
 ├── scaffolds //模版文件夹。当您新建文章时，Hexo 会根据 scaffold 来建立文件。
-├── source //资源文件夹是存放用户资源的地方。
+├── source //文章源码目录，该目录下的markdown和html文件均会被hexo处理。
 | ├── _posts  //新建的文章都将存放在此目录下。编辑<文件名>.md文件可修改内容。
 └── themes //主题文件夹。Hexo会根据主题来生成静态页面。
 ```
