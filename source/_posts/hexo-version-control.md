@@ -9,64 +9,39 @@ tags:
 网上也有其他的方法，大家可以去搜一下，自己看看哪种适合自己，我用这种方法一方面我git命令也不太熟，所以想多写写，多学学。
 <!-- more -->
 
-
-## 情形1（本地没有开始搭建博客文件的情形）
-1.在github官网上创建一个新的repository（比如命名为dongfangpiaoyang.github.io）
-2.创建两个分支：master 与 hexo，设置hexo为默认分支（这个分支放博客源文件）
-3.使用 git clone git@github.com:dongfangpiaoyang（你自己giuhub账号名）/dongfangpiaoyang.github.io（项目名）.git
-完整写一遍：git clone git@github.com:dongfangpiaoyang/dongfangpiaoyang.github.io.git
-这样就把项目拷贝到你本地上了
-
-4.在本地文件夹dongfangpiaoyang.github.io，通过Git bash依次执行以下命令
-``` bash
-$ npm install -g hexo-cli
-$ hexo init
-$ npm install
-$ npm install hexo-deployer-git
-$ git init
-$ git checkout -b hexo
-```
-(此时当前分支应显示为hexo)
-
-5.打开站点配置文件(即根目录下的_config.yml)，分支为master
-``` bash
-deploy:
-  type: git
-  repository: https://github.com/dongfangpiaoyang/dongfangpiaoyang.github.io.git
-  branch: master
-```
-
-6.通过Git bash依次执行以下命令:
-``` bash
-$ git add .
-$ git commit -m "提交说明"
-$ git pull origin hexo
-$ git push origin hexo
-```
-
-7.执行以下指令即可完成部署:
-``` bash
-$ hexo generate
-$ hexo deploy
-```
+先删除主题文件下的.git文件
 
 
-## 情形2（本地已经搭建博客文件的情形，就是说源文件没有进行版本控制）
-
-在博客文件夹下边依次输入以下指令(部分指令因为有提示可以自己修改下)
+然后在本地博客文件夹下边依次输入以下指令(部分指令因为有提示可以自己修改下)
 
 ``` bash
 $ git init
 $ git checkout -b hexo
 $ git remote add origin git@github.com:dongfangpiaoyang（你自己giuhub账号名）/dongfangpiaoyang.github.io（项目名）.git
-$ git init
 $ git add .
+$ git commit -m "提交说明"
 $ git push origin hexo
 ```
 执行到这里我们就已经把本地的源文件添加到了分支hexo上。
-部分文件需要自己添加即：
-$ git add [file]
 
+说明：博客文件夹下根目录.gitignore（此文件的作用是因此忽略所写的文件或者目录，加快push速度。）可以不修改，我的就没有修改，如果不修改的话
+在；另外一台电脑上克隆下来的博客项目就要先运行一下命令
+
+``` bash
+$ npm install
+```
+
+我的.gitignore文件内容为
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+
+
+当然你也可以把node_modules/去掉，这样在另外的电脑克隆下来的项目就不用在运行上面的命令了
 
 
 扩展：
