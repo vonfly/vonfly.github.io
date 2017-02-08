@@ -67,6 +67,11 @@ version 显示 Hexo 版本。
 $ hexo version
 ```
 
+安装 Hexo Algolia 扩展（用于页面搜索）
+``` bash
+$ npm install hexo-algolia@0.2.0
+```
+
 
 
 ### git一些命令
