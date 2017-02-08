@@ -70,6 +70,15 @@ duoshuo_shortname: vonfly
 duoshuo_share: true
 duoshuo_hotartical: true
 
+
+#algolia
+algolia:
+  applicationID: 'H5HW68BKTS'
+  apiKey: '06184ff013b323c4548ebcbe198c87a9'
+  adminApiKey: '05b0bbb526c3fedb614c933f90097507'
+  indexName: 'vonfly_dong'
+  chunkSize: 5000
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
