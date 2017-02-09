@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 东方飘扬
-subtitle: 平时项目的一些经验
-description: 前端 | 后台 | linux
+title: 编程、人生
+subtitle: 前端 | 后台 | linux
+description: 编程、人生。编成我们的人生！
 author: 阿东
 language: zh-Hans
 timezone:
@@ -67,7 +67,7 @@ theme: next
 
 # Duoshuo ShortName
 duoshuo_shortname: vonfly
-duoshuo_share: true
+#duoshuo_share: true
 duoshuo_hotartical: true
 
 
