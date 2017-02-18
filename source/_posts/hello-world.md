@@ -154,3 +154,7 @@ $ hexo deploy
 ```
 
 直接在浏览器访问vonfly.github.io试试
+
+博客安装和主题配置参考：
+[hexo官网](https://hexo.io/zh-cn/docs/)
+[next主题官网](http://theme-next.iissnan.com/getting-started.html#top)

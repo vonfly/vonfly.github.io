@@ -1,11 +1,11 @@
 ---
-title: sublime
+title: sublime使用技巧-持续更新
 date: 2017-02-17 20:33:48
 tags: [软件使用技巧]
 categories: 其它
 ---
 
-sublime编辑器安装和使用
+sublime使用技巧，平时用的时候觉得不错的功能就会把它分享给大家(●'◡'●)
 <!-- more -->
 
 ## sublime右键快捷方式添加
