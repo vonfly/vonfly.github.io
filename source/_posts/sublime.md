@@ -1,7 +1,7 @@
 ---
 title: sublime
 date: 2017-02-17 20:33:48
-tags: [sublime, 软件使用技巧]
+tags: [软件使用技巧]
 categories: 其它
 ---
 
