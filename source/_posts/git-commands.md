@@ -1,5 +1,5 @@
 ---
-title: git-commands
+title: 一些常用的git-commands
 date: 2016-06-18 20:08:16
 tags: [命令使用, git]
 categories: 命令

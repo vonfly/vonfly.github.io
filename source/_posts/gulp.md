@@ -1,5 +1,5 @@
 ---
-title: gulp
+title: 初识gulp
 date: 2016-11-02 23:40:09
 tags: [gulp,代码优化]
 categories: 自动化构建工具
