@@ -106,7 +106,7 @@ export LANG=zh_CN.UTF-8
 SVN_PATH=/usr/bin/svn   //这里不用改
 WEB_PATH=/www/test  //对应自己web目录
 //这里的用户随便一个就好
-$SVN_PATH update $WEB_PATH --username 'lsgoweb1' --password 'lsgoweb1' --no-auth-cache
+$SVN_PATH update $WEB_PATH --username 'vonfly' --password 'vonfly' --no-auth-cache
 
 ![post-commit](http://olixffhc0.bkt.clouddn.com/server_svn5.jpg)
 
