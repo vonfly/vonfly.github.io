@@ -38,7 +38,7 @@ seo: false
 menu:
   home: /
   categories: /categories
-  #about: /about
+  about: /about
   archives: /archives
   tags: /tags
   #sitemap: /sitemap.xml
@@ -395,15 +395,18 @@ calendar:
   maxResults: 250
 
 # Algolia Search
-algolia_search:
-  enable: true
-  hits:
-    per_page: 10
-  labels:
-    input_placeholder: 输入关键字
-    hits_empty: "没有找到与[ ${query} ] 相关的内容，请输入其他关键字搜索"
-    hits_stats: "${hits} 条相关记录，共耗时 ${time} ms"
+#algolia_search:
+#  enable: true
+#  hits:
+#    per_page: 10
+#  labels:
+#    input_placeholder: 输入关键字
+#    hits_empty: "没有找到与[ ${query} ] 相关的内容，请输入其他关键字搜索"
+#    hits_stats: "${hits} 条相关记录，共耗时 ${time} ms"
 
+# Local search
+local_search:
+  enable: true
 
 
 #! ---------------------------------------------------------------

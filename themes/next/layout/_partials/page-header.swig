@@ -1,6 +1,6 @@
 <header class="post-header">
 
-	<h2 class="post-title" itemprop="name headline">{{ page.title }}</h2>
+	<h2 class="post-title headband" itemprop="name headline">{{ page.title }}</h2>
 
 {% if page.description %}
 	<div class="post-meta">

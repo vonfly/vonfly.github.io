@@ -2,7 +2,7 @@
 title: 搭建SVN服务器
 date: 2017-02-26 09:24:08
 tags: [SVN, Centos, 版本控制]
-categories: 服务器
+categories: Linux
 ---
 
 在 Centos5.5 上搭建SVN服务器并实现自动同步至web目录。
