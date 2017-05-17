@@ -53,21 +53,23 @@ vim svnserve.conf
 //找到以下配置项，将前面的#号去掉（注意：所有配置项前面不能留空格），然后做相应的配置
 anon-access = none  	//匿名用户访问权限:无
 auth-access = write     //普通用户访问权限:写
-password-db = passwd    //密码文件
-authz-db = authz        //权限配置文件
+password-db = passwd    //引入密码文件
+authz-db = authz        //引入权限配置文件
 realm = /home/svn/test   //版本库所在
 
 ### 启动svn服务
 ``` base
 svnserve -d -r /home/svn
 ```
+其中 -d表示(独立端口运行)	-r表示(仓库地址)
+svn服务走svn协议，端口号是3690
 
 如果提示：svnserve: E000098: Can't bind server socket: Address already in use
 证明现在svn已经被启动了，由于我们修改了配置文件，因此要重启svn服务，所以要先关闭svn再重启svn
 
 查看svn服务详情（如下图所示）
 ``` base
-ps aux|grep svn
+ps aux | grep svn
 ```
 
 将svn服务强制停止  其中790为svn服务的ID号，-9是kill的参数
@@ -114,3 +116,18 @@ $SVN_PATH update $WEB_PATH --username 'vonfly' --password 'vonfly' --no-auth-cac
 ``` base
 chmod 755 post-commit
 ```
+
+## 扩展
+
+### 具体权限表示
+r(read)读【有update操作】	w(write)写【有commit操作】
+
+### 开启只操作某个目录的权限
+要求：给帐号设置只操作temp目录的权限，只能给操作temp目录的用户只读权限
+对应的权限文件（authz）设置
+[test:/temp]
+temp1 = r
+temp2 = r
+.....
+对应的本地客户端拉取就要：输入远程链接：svn://服务器iP地址/test/temp
+说明：这样的设置不会影响到之前[test:/]的设置，两个设置可以共存
