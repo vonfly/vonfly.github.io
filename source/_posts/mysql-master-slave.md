@@ -1,7 +1,8 @@
 ---
 title: mysql-主从复制
 date: 2017-03-20 09:27:11
-tags:
+tags: mysql
+categories: mysql 
 ---
 
 mysql主从复制和慢查询日志说明

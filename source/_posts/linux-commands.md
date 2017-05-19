@@ -236,11 +236,6 @@ free -m
 top
 ```
 
-### 实时跟踪一个命令的执行结果(如跟踪ls -lh命令)
-``` linux
-watch -n1 ls -lh
-```
-
 ### 关机
 ``` linux
 shutdown -h now
@@ -251,3 +246,14 @@ shutdown -h now
 alt+f(1-6),共有6个终端
 ```
 
+### 实时跟踪一个命令的执行结果(如跟踪ls -lh命令)
+``` linux
+可以切换终端来查看具体效果
+watch -n1 ls -lh
+```
+
+### 加压方式
+``` linux
+.tar.gz------------------> tar zxvf 压缩包名.tar.gz
+.tar.bz2-----------------> tar jxvf 压缩包名.tar.bz2
+```

@@ -1,7 +1,8 @@
 ---
 title: mysql-SQL语句技巧和优化
 date: 2017-03-13 09:16:46
-tags:
+tags: mysql
+categories: mysql 
 ---
 
 SQL语句技巧和优化

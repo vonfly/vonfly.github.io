@@ -1,7 +1,8 @@
 ---
 title: mysql-分区技术
 date: 2017-03-16 09:20:40
-tags:
+tags: mysql
+categories: mysql 
 ---
 
 mysql-分区技术
