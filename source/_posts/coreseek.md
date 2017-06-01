@@ -61,6 +61,13 @@ vim csft.conf，修改为：
 如下图：
 
 
+### 创建全文索引
+配置文件没有错误了，就可以开始创建全文索引了
+
+``` base
+# /usr/local/coreseek/bin/indexer --all
+```
+
 ## 用PHP连接使用Sphinx
 1、先到http://pecl.php.net/package/sphinx下载所需要的扩展库
 2、解压文件和进入解压目录

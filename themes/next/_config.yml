@@ -278,8 +278,8 @@ mathjax:
 # Hypercomments
 #hypercomments_id:
 
-# Gentie productKey
-#gentie_productKey:
+# Gentie productKey（网易云跟帖）
+gentie_productKey: fb368882a10d4399a647b3100f42dab9
 
 # Support for youyan comments system.
 # You can get your uid from http://www.uyan.cc
@@ -318,11 +318,11 @@ mathjax:
 # Make duoshuo show UA
 # user_id must NOT be null when admin_enable is true!
 # you can visit http://dev.duoshuo.com get duoshuo user id.
-duoshuo_info:
-  ua_enable: true
-  admin_enable: true
-  user_id: 6378418750034544000
-  admin_nickname: 博主
+# duoshuo_info:
+#   ua_enable: true
+#   admin_enable: true
+#   user_id: 6378418750034544000
+#   admin_nickname: 博主
 
 
 # Facebook SDK Support.

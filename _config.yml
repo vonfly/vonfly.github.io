@@ -66,8 +66,8 @@ pagination_dir: page
 theme: next
 
 # Duoshuo ShortName
-duoshuo_shortname: vonfly
-duoshuo_share: true
+# duoshuo_shortname: vonfly
+# duoshuo_share: true
 #duoshuo_hotartical: true
 
 
