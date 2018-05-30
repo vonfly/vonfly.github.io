@@ -36,6 +36,19 @@ mysql> insert into vf_a2 select * from vf_a1;	//复制表数据。说明：表vf
 mysql> rename table t2 to t1;
 ```
 
+#### 添加、修改字段
+``` mysql
+//添加字段username
+mysql> alter table vf_a1 add username varchar(32) not null default '' comment '用户名';
+
+//修改字段
+mysql> alter table vf_a1 modify username varchar(20) not null default '' comment '用户名';
+//修改字段
+mysql> alter table vf_a1 change username varchar(20) not null default '' comment '用户名';
+
+//删除username字段
+mysql> alter table vf_a1 drop username;
+```
 #### 索引的创建、删除、查看
 ##### 方法一： create index（创建索引）、drop index（删除索引）
 ``` mysql

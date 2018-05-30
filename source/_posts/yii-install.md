@@ -5,6 +5,7 @@ tags:
 ---
 
 通过 Composer 安装
+<!-- more -->
 
 ### Packagist / Composer中国全量镜像
 
