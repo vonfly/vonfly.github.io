@@ -4,110 +4,101 @@ date: 2017-02-28 19:43:19
 tags: [面试, 理论知识]
 categories: PHP
 ---
-本页面主要用于编写一些理论知识，从网上找的或者自己总结的都会有。主要用于自己学习。如发现本网站载有侵犯您著作权的侵权信息，可联系我删除(●'◡'●)
+本页面主要用于编写一些理论知识，从网上找的或者自己总结的都会有。主要用于自己学习(●'◡'●)
 
 <!-- more -->
 
-#### 用最少的代码写一个求3值最大值的函数
+#### 简述 private、 protected、 public修饰符的访问权限
+private: 私有成员, 在类的内部才可以访问
 
-``` php
-function($a,$b,$c){
-	return $a > $b ? ($a > $c ? $a : $c) : ($b > $c ? $b : $c);
-}
-```
+protected: 保护成员，该类内部和继承类中可以访问
 
-#### 用PHP打印出前一天的时间，打印格式是2007年5月10日22:21:21
-``` php
-echo date('Y-m-d H:i:s', strtotime('-1 day'));
-```
+public: 公共成员，完全公开，没有访问限制
 
-#### 输出正在浏览当前页面用户的IP地址
-``` php
-echo $_SERVER["REMOTE_ADDR"];
-```
+#### 面向对象的特征有哪些方面?
+主要有封装,继承,多态。如果是4个方面则加上：抽象。
 
-#### 查询（query）的字符串URL中第一个问号 ? 之后的内容（比如http://localhost/text.php?id=1&bi=2，查询出 id=1&bi=2 ）
-``` php
-echo $_SERVER["QUERY_STRING"];
-```
+理解：
 
-#### 当前运行脚本所在的文档根目录
-``` php
-echo $_SERVER["DOCUMENT_ROOT"];
-```
+1、封装：封装是保证软件部件具有优良的模块性的基础,封装的目标就是要实现软件部件的高内聚,低耦合,防止程序相互依赖性而带来的变动影响
 
-#### 写一个函数，能够遍历一个文件夹下的所有文件和子文件夹
-``` php
-function my_scandir($dir)
-{
-	$files=array();
-	if(is_dir($dir))
-	{
-		if($handle=opendir($dir))
-		{
-			while(($file=readdir($handle))!==false)
-			{
-				if($file!="." && $file!="..")
-				{
-					if(is_dir($dir."/".$file))
-					{
-						$files[$file]=my_scandir($dir."/".$file);
-					}
-					else
-					{
-						$files[]=$dir."/".$file;
-					}
-				}
-			}
-			closedir($handle);
-			return $files;
-		}
-	}
-}
-var_dump(my_scandir("F:ali"));
-```
-#### 请用正则表达式（Regular Expression）验证电子邮件的格式是否正确。
-``` php
-$email = '1185236@163.com';
-if( !preg_match('/^[\w.]+@([\w.]+)\.[a-z]{2,6}$/i', $email) )
-{
-	echo "电子邮件格式不正确！";
-}
-else
-{
-	echo "电子邮件格式正确！";
-}
-```
+2、继承：在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，把这个已经存在的类所定义的内容作为自己的内容，并可以加入若干新的内容，或修改原来的方法使之更适合特殊的需要，这就是继承。继承是子类自动共享父类数据和方法的机制，这是类之间的一种关系，提高了软件的可重用性和可扩展性
 
-#### 用PHP写出显示客户端IP与服务器IP的代码
-``` php
-echo $_SERVER["REMOTE_ADDR"];		//客户端IP
-echo gethostbyname("www.baidu.com");	//服务器IP
-```
+3、多态：多态是指程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，即一个引用变量倒底会指向哪个类的实例对象，该引用变量发出的方法调用到底是哪个类中实现的方法，必须在由程序运行期间才能决定。
 
-#### 如何修改SESSION的生存时间
-方法1：将php.ini中的session.gc_maxlifetime设置为9999重启apache
+4、抽象：抽象就是找出一些事物的相似和共性之处，然后将这些事物归为一个类，这个类只考虑这些事物的相似和共性之处，并且会忽略与当前主题和目标无关的那些方面，将注意力集中在与当前目标有关的方面。例如，看到一只蚂蚁和大象，你能够想象出它们的相同之处，那就是抽象。
 
-方法2：在当前项目中修改
-``` php
-$expire = 3600 * 3;
-ini_set('session.gc_maxlifetime', $expire);
-ini_set('session.cookie_lifetime', $expire);
-```
+#### 常见的 PHP 安全性攻击
+1、SQL注入：用户利用在表单字段输入SQL语句的方式来影响正常的SQL执行。
 
-#### 有一个网页地址, 比如百度主页: http://www.baidu.com/,如何得到它的内容?
-方法1：
-``` php
-$readcontents = fopen("http://www.baidu.com/", "rb");
-$contents = stream_get_contents($readcontents);
-fclose($readcontents);
-echo $contents;
-```
-方法2：
-``` php
-$readcontents = file_get_contents("http://www.baidu.com/");
-echo $readcontents;
-```
+防止：
+(1)使用mysql_real_escape_string()过滤数据
+(2)手动检查每一数据是否为正确的数据类型
+(3)使用预处理语句并绑定变量
+(4)参数化SQL：是指在设计与数据库链接并访问数据时，在需要填入数值或数据的地方，使用参数 (Parameter) 来给值，用@或？来表示参数。
+
+2、XSS攻击 ：跨站点脚本攻击，由用户输入一些数据到你的网站，其中包括客户端脚本(通常JavaScript)。如果你没有过滤就输出数据到另一个web页面，这个脚本将被执行。
+
+防止：为了防止XSS攻击，使用PHP的htmlentities()函数过滤再输出到浏览器。
+
+#### 抽象类和接口的概念以及区别？
+1、抽象类：它是一种特殊的，不能被实例化的类，只能作为其他类的父类使用。使用abstract关键字声明。
+2、接口是一种特殊的抽象类，也是一个特殊的类，使用interface声明
+
+区别：
+（1）抽象类的操作通过继承关键字extends实现，而接口的使用是通过implements关键字来实现。
+
+（2）抽象类中有数据成员，可以实现数据的封装，但是接口没有数据成员。
+
+（3）抽象类中可以有构造方法，但是接口没有构造方法。
+
+（4）抽象类的方法可以通过private、protected、public关键字修饰（抽象方法不能是private），而接口中的方法只能使用public关键字修饰。
+
+（5）一个类只能继承于一个抽象类，而一个类可以同时实现多个接口。
+
+（6）抽象类中可以有成员方法的实现代码，而接口中不可以有成员方法的实现代码。
+
+#### 什么是构造函数，什么是析构函数，作用是什么？ 
+1、构造函数（方法）是对象创建完成后第一个被对象自动调用的方法。它存在于每个声明的类中，是一个特殊的成员方法。作用是执行一些初始化的任务。Php中使用__construct()声明构造方法，并且只能声明一个
+
+2、析构函数（方法）作用和构造方法正好相反，是对象被销毁之前最后一个被对象自动调用的方法。是PHP5中新添加的内容作用是用于实现在销毁一个对象之前执行一些特定的操作，诸如关闭文件和释放内存等。
+
+#### 如何重载父类的方法，举例说明
+1、重载，即覆盖父类的方法，也就是使用子类中的方法替换从父类中继承的方法，也叫方法的重写。
+
+2、覆盖父类方法的关键是在子类中创建于父类中相同的方法包括方法的名称、参数和返回值类型。PHP中只要求方法的名称相同即可。
+
+#### $this和self、parent这三个关键词分别代表什么？在哪些场合下使用？
+1、$this 当前对象
+
+2、self  当前类
+
+3、parent  当前类的父类
+
+使用场合：
+
+$this在当前类中使用,使用->调用属性和方法。
+
+self也在当前类中使用，不过需要使用::调用。
+
+parent在类中使用。
+
+#### 类中如何定义常量、如何类中调用常量、如何在类外调用常量。
+1、类中的常量也就是成员常量，常量就是不会改变的量，是一个恒值。
+
+2、定义常量使用关键字const 例如：const PI = 3.1415326;
+
+如何调用：
+
+无论是类内还是类外，常量的访问和变量是不一样的，常量不需要实例化对象，
+访问常量的格式都是类名加作用域操作符号（双冒号）来调用。
+即：类名 :: 类常量名;
+
+#### 堆和栈的区别？
+1、栈是编译期间就分配好的内存空间，因此你的代码中必须就栈的大小有明确的定义； 
+
+2、堆是程序运行期间动态分配的内存空间，你可以根据程序的运行情况确定要分配的堆内存的大小。
+
 
 #### 请说明php中传值与传引用的区别。什么时候传值什么时候传引用?
 按值传递：函数范围内对值的任何改变在函数外部都会被忽略
@@ -118,200 +109,33 @@ echo $readcontents;
 
 按引用传递则不需要复制值，对于性能提高很有好处。
 
-#### 写一个函数，尽可能高效的，从一个标准 url 里取出文件的扩展名
-例如: http://www.sina.com.cn/abc/de/fg.php?id=1 需要取出 php 或 .php
-方法1：
-``` php
-function getExt($url){
-	$arr = parse_url($url);
-	$file = basename($arr['path']);
-	$ext = explode(".", $file);
-	return $ext[1];
-}
-echo getExt('http://www.sina.com.cn/abc/de/fg.php?id=1');
-```
-方法2：
-``` php
-function getExt($url) {
-	$url = basename($url);
-	$pos1 = strpos($url, ".");
-	$pos2 = strpos($url, "?");
-	$length = $pos2 - $pos1 - 1;
-	if(strstr($url, "?")){
-		return substr($url, $pos1 + 1, $length);
-	} else {
-		return substr($url, $pos1);
-	}
-}
-echo getExt('http://www.sina.com.cn/abc/de/fg.php?id=1');
-```
-
-#### 使用五种以上方式获取一个文件的扩展名
-要求：dir/upload.image.jpg，找出 .jpg 或者 jpg ，
-必须使用PHP自带的处理函数进行处理，方法不能明显重复，可以封装成函数，比如 get_ext1($file_name), get_ext2($file_name)
-
-``` php
-$file_name = 'dir/upload.image.jpg';
-function get_ext1($file_name){
-	return strrchr($file_name, '.');
-}
-echo get_ext1($file_name);
-```
-
-``` php
-$file_name = 'dir/upload.image.jpg';
-function get_ext2($file_name){
-	return substr( $file_name, strrpos($file_name, '.') );
-}
-echo get_ext2($file_name);
-```
-
-``` php
-$file_name = 'dir/upload/image.jpg';
-function get_ext3($file_name){
-	$stack = explode('.', $file_name);
-	$fruit = array_pop($stack);
-	return $fruit;
-}
-echo get_ext3($file_name);
-```
-
-``` php
-$file_name = 'dir/upload/image.jpg';
-function get_ext4($file_name){
-	$p = pathinfo($file_name);
-	return $p['extension'];
-}
-echo get_ext4($file_name);
-```
-
-``` php
-$file_name = 'dir/upload/image.jpg';
-function get_ext5($file_name){
-
-return strrev(substr(strrev($file_name), 0, strpos(strrev($file_name), '.')));
-
-}
-echo get_ext5($file_name);
-```
-
-#### 输出以下值
-``` php
-$str1 = null;
-$str2 = false;
-echo $str1==$str2 ? '相等' : '不相等';
-//输出相等
-
-$str3 = '';
-$str4 = 0;
-echo $str3==$str4 ? '相等' : '不相等';
-//输出相等
-
-$str5 = 0;
-$str6 = '0';
-echo $str5===$str6 ? '相等' : '不相等';
-//输出不相等
-```
-
-#### MySQL数据库中的字段类型varchar和char的主要区别是什么?那种字段的查找效率要高，为什么?
-varchar是变长，节省存储空间，char是固定长度。查找效率要char型快，因为varchar是非定长，必须先查找长度，然后进行数据的提取，比char定长类型多了一个步骤，所以效率低一些
-
-#### 写出三种以上MySQL数据库存储引擎的名称（提示：不区分大小写）
-MyISAM、InnoDB、BDB（Berkeley DB）、Merge、Memory（Heap）、Example、Federated、Archive、CSV、Blackhole、MaxDB 等等十几个引擎
-
-#### 求两个日期的差数，例如2007-2-5 ~ 2007-3-6 的日期差数
-``` php
-function get_days($date1, $date2)
-{
-	$time1 = strtotime($date1);
-	$time2 = strtotime($date2);
-	return abs($time2-$time1)/86400;
-}
-echo get_days('2007-2-5', '2007-2-6');
-```
-
-#### 请写一个函数，实现以下功能：
-字符串"open_door" 转换成 "OpenDoor"、"make_by_id" 转换成 "MakeById"
-方法一：
-``` php
-function str_explode($str){
-	$str_arr=explode("_",$str);
-	$str_implode=implode(" ", $str_arr);
-	$str_implode=implode("", explode(" ",ucwords($str_implode)));
-	return $str_implode;
-}
-echo str_explode('open_door');
-```
-
-方法二：
-``` php
-$str = 'open_door';
-$expStr = explode("_", $str);
-for($i = 0; $i < count($expStr); $i++)
-{
-	echo ucwords($expStr[$i]);
-}
-```
-
-方法三：
-``` php
-echo str_replace(' ', '', ucwords( str_replace('_', ' ', 'open_door') ) );
-```
-
-#### echo count("abc"); 输出什么?
-答案：1
-说明：count — 计算数组中的单元数目或对象中的属性个数
-int count ( mixed$var [, int $mode ] ), 如果 var 不是数组类型或者实现了 Countable 接口的对象，将返回1，有一个例外，如果 var 是 NULL 则结果是 0。
-
-对于对象，如果安装了 SPL，可以通过实现 Countable 接口来调用 count()。该接口只有一个方法 count()，此方法返回 count() 函数的返回值。
-
-#### 有一个一维数组，里面存储整形数据，请写一个函数，将他们按从大到小的顺序排列。要求执行效率高。并说明如何改善执行效率。（该函数必须自己实现，不能使用php函数）
-``` php
-function BubbleSort(&$arr)
-{
-	$cnt = count($arr);
-	$flag = 1;
-	for($i = 0; $i < $cnt; $i++)
-	{
-		if($flag == 0)
-		{
-			return;
-		}
-		$flag = 0;
-		for($j = 0;$j < $cnt-$i-1; $j++)
-		{
-			if($arr[$j] > $arr[$j+1])
-			{
-				$tmp = $arr[$j];
-				$arr[$j] = $arr[$j+1];
-				$arr[$j+1] = $tmp;
-				$flag = 1;
-			}
-		}
-	}
-}
-$test=array(1,3,6,8,2,7);
-BubbleSort($test);
-var_dump($test);
-```
 
 #### 请举例说明在你的开发过程中用什么方法来加快页面的加载速度
-答：要用到服务器资源时才打开，及时关闭服务器资源，数据库添加索引，页面可生成静态，图片等大文件单独服务器。使用代码优化工具
+1、要用到服务器资源时才打开，及时关闭服务器资源
+2、数据库添加索引
+3、页面可生成静态
+4、图片等大文件单独服务器
+5、使用代码优化工具
 
-#### HTTP协议中GET、POST和HEAD的区别?
-HEAD： 只请求页面的首部。
+#### get与post两种方式的区别?
+1、get从服务器获取数据，post向服务器传送数据
 
-GET： 请求指定的页面信息，并返回实体主体。
+2、get传值在url中可见，post在url中不可见
 
-POST： 请求服务器接受所指定的文档作为对所标识的URI的新的从属实体。
+3、get传值一般在2KB以内，post传值大小可以在php.ini中进行设置
 
-（1）HTTP 定义了与服务器交互的不同方法，最基本的方法是 GET 和 POST。事实上 GET 适用于多数请求，而保留 POST 仅用于更新站点。
+4、get安全性非低，post安全性较高，执行效率却比post高
 
-（2）在FORM提交的时候，如果不指定Method，则默认为GET请 求，Form中提交的数据将会附加在url之后，以?分开与url分开。字母数字字符原样发送，但空格转换为“+“号，其它符号转换为%XX,其中XX为 该符号以16进制表示的ASCII（或ISO Latin-1）值。GET请求请提交的数据放置在HTTP请求协议头中，而POST提交的数据则放在实体数据中；
+建议：
+1、get式安全性较Post式要差些包含机密信息建议用Post数据提交式；
 
-GET方式提交的数据最多只能有1024字节，而POST则没有此限制。
+2、做数据查询建议用Get式；做数据添加、修改或删除建议用Post方式；
 
-（3）GET 这个是浏览器用语向服务器请求最常用的方法。POST这个方法也是用来传送数据的，但是与GET不同的是，使用POST的时候，数据不是附在URI后面传递的，而是要做为独立的行来传递，此时还必须要发送一个Content_length标题，以标明数据长度，随后一个空白行，然后就是实际传送的数据。网页的表单通常是用POST来传送的。
+#### 为什么get比post更快
+1、post请求包含更多的请求头
+2、post在真正接受数据之前会先将请求头发送给服务器进行确认，然后才真正发送数
+3、get会将数据缓存起来，而post不会
+4、post不能进行管道化传输
 
 #### Cookie和session的区别，禁止了cookie后session能正常使用吗?session的缺点是什么?session在服务器端是存在哪里的?是共有的还是私有的?
 答：
@@ -330,13 +154,13 @@ Session保存在服务器端的文件或数据库中，默认保存在文件中�
 Session文件是公有的。
 
 #### 写几个魔术方法并说明作用?
-__call()当调用不存在的方法时会自动调用的方法
+__call()调用一个不存在的方法的时候调用
 
 __autoload()在实例化一个尚未被定义的类是会自动调用次方法来加载类文件
 
-__set()当给未定义的变量赋值时会自动调用的方法
+__set()在给未定义的属性赋值的时候调用
 
-__get()当获取未定义变量的值时会自动调用的方法
+__get()调用未定义的属性时候调用
 
 __construct()构造方法，实例化类时自动调用的方法
 
@@ -350,6 +174,14 @@ __clone()克隆一个对象
 
 __tostring()当输出一个对象时自动调用的方法
 
+#### PHP数组排序
+sort() - 以升序对数组排序
+rsort() - 以降序对数组排序
+asort() - 根据值，以升序对关联数组进行排序
+ksort() - 根据键，以升序对关联数组进行排序
+arsort() - 根据值，以降序对关联数组进行排序
+krsort() - 根据键，以降序对关联数组进行排序
+
 #### 数组中下标最好是什么类型的，为什么?
 数组的下标最好是数字类型的，数字类型的处理速度快
 
@@ -359,70 +191,33 @@ __tostring()当输出一个对象时自动调用的方法
 #### echo()、print()、print_r()的区别?
 echo 是php语法，可以输出多个变量，不能输出数组。
 
-Print()是php中的函数，只能输出简单的变量。
+print()是php中的函数，只能输出简单的变量。
 
-Print_r()是php中的函数，可以输出变量也可以输出数组。
+print_r()是php中的函数，可以输出变量也可以输出数组。
 
 #### 框架中什么是单一入口和多入口，单一入口的优缺点?
 1、多入口就是通过访问不同的文件来完成用户请求。
-单一入口只web程序所有的请求都指向一个脚本文件的。
+单一入口只web程序所有的请求都指向一个脚本文件的
+
 2、单一入口更容易控制权限，方便对http请求可以进行安全性检查。
+
 缺点：URL看起来不那么美观，特别是对搜索引擎来说不友好。
 
 #### 提示类型200、404、502是什么意思。
-200是请求成功，404是文件未找到，502是服务器内部错误。
+1、200是请求成功
 
-#### 你对Memcach的理解，优点有哪些?
-Memcache是一种缓存技术，在一定的时间内将动态网页经过解析之后保存到文件，下次访问时动态网页就直接调用这个文件，而不必在重新访问数据库。使用memcache做缓存的好处是：提高网站的访问速度，减轻高并发时服务器的压力。
+2、404是文件未找到
 
-Memcache的优点：稳定、配置简单、多机分布式存储、速度快。
+3、502是服务器内部错误
 
-#### 对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题:
+#### include，include_once，require，require_once的区别
+1、include,require在其被调用的位置处包含一个文件。
 
-a) 索引的目的是什么?
+2、include_once,require_once函数的作用与include相同，不过它会首先验证是否已包含该文件。如果已经包含，则不再执行include_once。其他同include一样。
 
-b) 索引对数据库系统的负面影响是什么?
+3、require与include最主要的区别，a、require出错时，脚本将停止运行，而include出错的情况下，脚本将继续执行。b、无论require的位置如何，制定文件都将包含到出现require的脚本中。例如，即使require放在计算结果为假的if语句中，依然会包含指定文件。
 
-c) 为数据表建立索引的原则有哪些?
-
-d) 什么情况下不宜建立索引?
-
-答：
-索引的目的：
-
-1、快速访问数据表中的特定信息，提高检索速度
-
-2、创建唯一性索引，保证数据库表中每一行数据的唯一性
-
-3、加速表和表之间的连接
-
-4、使用分组和排序子句进行数据检索时，可以显著减少查询中分组和排序的时间
-
-负面影响：创建索引和维护索引需要耗费时间，这个时间随着数据量的增加而增加；索引需要占用物理空间，不光是表需要占用数据空间，每个索引也需要占用物理空间；当对表进行增、删、改的时候索引也要动态维护，这样就降低了数据的维护速度。
-
-建立索引的原则：
-
-1、在最频繁使用的、用以缩小查询范围的字段上建立索引
-
-2、在平频繁使用的、需要排序的字段上建立索引
-
-什么情况下不宜建立索引：
-
-1、对于查询中很少涉及的列或者重复值比较多的列，不宜建立索引
-
-2、对于一些特殊的数据类型，不宜建立索引，比如文本字段(text)等。
-
-#### web应用中,数据库的读取频率远高于写入频率, 如何优化MySQL而应对此种情景 ?
-使用memcache缓存技术，将动态数据缓存到文件，访问动态页面时直接调用缓存文件，而不必重新访问数据库，这样就减少了查询数据库的次数。
-
-如果网站的访问量很大，可以把数据库读写服务器分开，使用多态服务器去处理数据库查询，使用较少的服务器去处理数据库的写入和修改。
-
-#### include与require的区别?
-Php在遇到include时就重新解释一次，如果一个页面中出现10次include，php就重新解释10次，而php遇到require时只解释一次，即使页面中出现多次require，php也直解释一次。
-
-使用require包含文件时，被包含的文件当成了当前文件的一个组成部分，如果被包含的文件中有语法错误或者文件不存在，程序就提示错误信息，并结束执行。
-
-使用include包含文件时，相当于指定了文件的路径，被包含的文件中有语法错误或者文件不存在时，页面只是给出警告信息，不响应程序本身的执行。
+4、使用require_once可以解决文件被覆盖的问题。 require_once函数确保文件只包含一次。在遇到require_once后，后面再试图包含相同的文件时将被忽略。
 
 #### PHP字符串中单引号与双引号的区别?
 单引号不能解释变量，而双引号可以解释变量。
@@ -432,56 +227,34 @@ Php在遇到include时就重新解释一次，如果一个页面中出现10次in
 使用模板引擎的目的是使程序的逻辑代码和html界面代码分离开，是程序的结构更清晰。
 使用过的模板引擎：Smarty、ThinkPHP的ThinkTemplate
 
-#### 指出以下代码片段中的SQL注入漏洞以及解决方法(magic_quotes_gpc = off)
-``` php
-mysql_query("select id,title from content where catid='{$_GET[catid]}' and title like '%$_GET[keywords]%'", $link);
-```
-注入漏洞主要存在用户提交的数据上，这里的注入漏洞主要是$_GET[catid]和$_GET[keyword]
+#### 什么是跨域？
+跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器施加的安全限制
 
-解决注入漏洞：
-``` php
-$_GET[catid]=intval($_GET[catid]);
+解决：
+1、CORS（跨资源共享）
+在php接口脚本中加入以下两句即可：
+header('Access-Control-Allow-Origin:*');//允许所有来源访问
+header('Access-Control-Allow-Method:POST,GET');//允许访问的方式
 
-$sql="select id,title from content where catid='{$_GET[catid]}' and title like '%$_GET[keywords]%";
+2、JSONP。要注意JSONP只支持GET请求，不支持POST请求
 
-$sql=addslashes($sql);
+#### 怎么保证促销商品不会超卖
+第一种方案是：在每次下订单前我们判断促销商品的数量够不够，不够不允许下订单，更改库存量时加上一个条件，只更改商品库存大于0的商品的库存，当时我们使用ab进行压力测试，当并发超过500，访问量超过2000时，还是会出现超卖现象。
 
-mysql_query($sql);
-```
+第二种方案是：使用mysql的事务加排他锁来解决，首先我们选择数据库的存储引擎为innoDB，使用的是排他锁实现的，刚开始的时候我们测试了下共享锁，发现还是会出现超卖的现象。有个问题是，当我们进行高并发测试时，对数据库的性能影响很大，导致数据库的压力很大
 
-#### MyISAM 和 InnoDB 的基本区别?
-MYISAM不支持外键和事务处理，采用表锁机制，查询速度稍快，数据存储文件有3个，InnoDB支持外键和事务处理，采用行锁机制，查询速度比MYISAM稍慢，数据存储文件只有一个。
+第三种方案是：使用文件锁实现。当用户抢到一件促销商品后先触发文件锁，防止其他用户进入，该用户抢到促销品后再解开文件锁，放其他用户进行操作。这样可以解决超卖的问题，但是会导致文件得I/O开销很大。
 
-#### 写出匹配URL的正则表达式.
-/^http:\/\/www\.([\w]+)\.([\w]+)$/
+最后我们使用了redis的队列来实现。将要促销的商品数量以队列的方式存入redis中，每当用户抢到一件促销商品则从队列中删除一个数据，确保商品不会超卖。这个操作起来很方便，而且效率极高，最终我们采取这种方式来实现
 
-#### 写一个函数实现字符串翻转
-方法一：strrev('abcdef');
-方法二：
-``` php
-function str($a){
-	$len = strlen($a);
-	$b = "";
-	for($i = $len-1; $i >= 0; $i--)
-	{
-		$b .= $a[$i];
-	}
-	return $b;
-}
-echo str('abcdef');
-```
+#### 你对Memcach的理解，优点有哪些?
+Memcache是一种缓存技术，在一定的时间内将动态网页经过解析之后保存到文件，下次访问时动态网页就直接调用这个文件，而不必在重新访问数据库。使用memcache做缓存的好处是：提高网站的访问速度，减轻高并发时服务器的压力。
 
-#### 不断在文件hello.txt头部写入一行“Hello World”字符串，要求代码完整
-``` php
-$fp=fopen('hello.txt', 'r');
+Memcache的优点：稳定、配置简单、多机分布式存储、速度快。
 
-$str='hello!'."\n";
+#### redis和memcacahe、mongoDB的区别？
+都是非关系型数据库，性能都非常高，但是mongoDB和memcache、redis是不同的两种类型。后两者主要用于数据的缓存，前者主要用在查询和储存大数据方面，是最接近数据库的文档型的非关系数据库。
 
-$str.=fread($fp, filesize('./hello.txt'));
+1、从数据存储位置上来分，memcache的数据存在内存中，而redis既可以存储在内存中，也可以存储的到磁盘中，达到持久化存储的功能，memcache一旦断电，数据全部丢失，redis可以利用快照和AOF把数据存到磁盘中，当恢复时又从磁盘中读取到内存中，当物理内存使用完毕后，可以把数据写入到磁盘中。
 
-fclose($fp);
-
-$fp1=fopen('hello.txt', 'w');
-
-fwrite($fp1, $str);
-```
+2、从存储数据的类型上来分，memcache和redis存储的方式都是键值对，只不过redis值的类型比较丰富，有string(字符串),hash(哈希)，list(列表),set(集合)zset(有序集合)，而memcache主要存储的是字符串。
