@@ -1,0 +1,968 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="编程、人生" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="SQL语句技巧和优化">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql-SQL语句技巧和优化">
+<meta property="og:url" content="https://vonfly.github.io/2017/03/13/mysql-optimize/index.html">
+<meta property="og:site_name" content="编程、人生">
+<meta property="og:description" content="SQL语句技巧和优化">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-22T11:54:19.389Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql-SQL语句技巧和优化">
+<meta name="twitter:description" content="SQL语句技巧和优化">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://vonfly.github.io/2017/03/13/mysql-optimize/"/>
+
+
+
+
+
+  <title> mysql-SQL语句技巧和优化 | 编程、人生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">编程、人生</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">前端 | 后台 | linux</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://vonfly.github.io/2017/03/13/mysql-optimize/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="阿东">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/my-avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="编程、人生">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="编程、人生" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                mysql-SQL语句技巧和优化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-13T09:16:46+08:00">
+                2017-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/03/13/mysql-optimize/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>SQL语句技巧和优化<br><a id="more"></a></p>
+<h2 id="mysql-SQL语句技巧和优化"><a href="#mysql-SQL语句技巧和优化" class="headerlink" title="mysql SQL语句技巧和优化"></a>mysql SQL语句技巧和优化</h2><p>mysql5.5及之后版本默认存储引擎是innodb</p>
+<h3 id="巧用RAND-提取随机行"><a href="#巧用RAND-提取随机行" class="headerlink" title="巧用RAND()提取随机行"></a>巧用RAND()提取随机行</h3><p>rand()是获取一个0-1之间的随机数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from st_vonfly order by rand();</span><br></pre></td></tr></table></figure></p>
+<p>随机抽取3条数据样本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from st_vonfly order by rand() limit 3;</span><br></pre></td></tr></table></figure></p>
+<h3 id="优化group-by语句"><a href="#优化group-by语句" class="headerlink" title="优化group by语句"></a>优化group by语句</h3><p>有的sql语句在执行的时候，本身默认会有排序效果<br>但是有的时候我们的业务不需要排序效果，就可以进行强制限制，进而“节省默认排序”的资源。</p>
+<p>如果查询包含group by但用户想要避免排序结果的损耗，则可以使用order by null来禁止排序：</p>
+<h3 id="优化嵌套查询"><a href="#优化嵌套查询" class="headerlink" title="优化嵌套查询"></a>优化嵌套查询</h3><p>表1如图：<br>CREATE TABLE <code>tp_user</code> (<br>  <code>id</code> int(10) unsigned NOT NULL AUTO_INCREMENT,<br>  <code>name</code> varchar(16) NOT NULL,<br>  <code>parents_id</code> int(10) NOT NULL,<br>  PRIMARY KEY (<code>id</code>)<br>) ENGINE=MyISAM DEFAULT CHARSET=utf8<br>表2如图：<br>CREATE TABLE <code>tp_parents</code> (<br>  <code>id</code> int(10) unsigned NOT NULL AUTO_INCREMENT,<br>  <code>parent_name</code> varchar(16) NOT NULL,<br>  PRIMARY KEY (<code>id</code>)<br>) ENGINE=MyISAM DEFAULT CHARSET=utf8</p>
+<p>下面是采用嵌套查询的效果（可以使用更有效的连接查询(JOIN)替代）</p>
+<p>mysql&gt; desc select <em> from tp_parents where id in(select parents_id from tp_user)<br>\G<br><strong><strong><strong><strong><strong><strong>**</strong></strong></strong></strong></strong></strong></em> 1. row <strong><strong><strong><strong><strong><strong>***</strong></strong></strong></strong></strong></strong><br>           id: 1<br>  select_type: PRIMARY<br>        table: tp_parents<br>         type: ALL<br>possible_keys: NULL<br>          key: NULL<br>      key_len: NULL<br>          ref: NULL<br>         rows: 3<br>        Extra: Using where<br><strong><strong><strong><strong><strong><strong>***</strong></strong></strong></strong></strong></strong> 2. row <strong><strong><strong><strong><strong><strong>***</strong></strong></strong></strong></strong></strong><br>           id: 2<br>  select_type: DEPENDENT SUBQUERY<br>        table: tp_user<br>         type: ALL<br>possible_keys: NULL<br>          key: NULL<br>      key_len: NULL<br>          ref: NULL<br>         rows: 4<br>        Extra: Using where<br>2 rows in set (0.06 sec)</p>
+<h4 id="数据库优化"><a href="#数据库优化" class="headerlink" title="数据库优化"></a>数据库优化</h4><p>优化表的类型<br>通过拆分提高表的访问效率<br>使用中间表提高统计查询速度</p>
+<h4 id="MYSQL服务器优化"><a href="#MYSQL服务器优化" class="headerlink" title="MYSQL服务器优化"></a>MYSQL服务器优化</h4><h5 id="四种字符集问题-统一设置为utf8"><a href="#四种字符集问题-统一设置为utf8" class="headerlink" title="四种字符集问题(统一设置为utf8)"></a>四种字符集问题(统一设置为utf8)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; \s</span><br></pre></td></tr></table></figure>
+<p>如何设置？<br>vim /etc/my.cnf<br>[client]</p>
+<p>#password=your_password<br>port=3306<br>socket=/tmp/mysql.sock<br>default-character-set=utf8    //控制的是客户端字符集和连接字符集</p>
+<p>[mysqld]<br>…….<br>myisam_sort_buffer_size=8M<br>character-set-server=utf8    //控制服务器字符集和数据库字符集<br>collation-server=utf8_general_ci    //校验字符集，主要针对的排序</p>
+<p>查看中文字符集以及对应的校验字符集<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show character set;</span><br></pre></td></tr></table></figure></p>
+<p>如图所示：</p>
+<h5 id="bin-log日志问题"><a href="#bin-log日志问题" class="headerlink" title="bin log日志问题"></a>bin log日志问题</h5><h5 id="slow-log慢查询日志问题"><a href="#slow-log慢查询日志问题" class="headerlink" title="slow log慢查询日志问题"></a>slow log慢查询日志问题</h5><p>可以查看是否开启慢查询日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &quot;%slow%&quot;;</span><br></pre></td></tr></table></figure></p>
+<p>设置的慢查询时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &quot;%long%&quot;;</span><br></pre></td></tr></table></figure></p>
+<p>开启慢查询日志和设置慢查询时间：<br>vim /etc/my.cnf<br>[mysqld]<br>…….<br>log_slow_queries=slow.log<br>long_query_time=5</p>
+<h5 id="socket问题"><a href="#socket问题" class="headerlink" title="socket问题"></a>socket问题</h5><p>mysql socket无法登录<br>1.有时登录mysql时提示不能用socket登录，此时可以换成tcp方式去登录，但是只有测试时可以这样用，必须要在php去用之前把这个事情解决了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># mysql -uroot -p123456 --protocol tcp -hlocalhost</span><br></pre></td></tr></table></figure>
+<p>这样就可以登录，就不用mysql.socket来登录。<br>把mysql重新启动就会自动生成socket文件</p>
+<h5 id="root密码丢失"><a href="#root密码丢失" class="headerlink" title="root密码丢失"></a>root密码丢失</h5><p>root密码丢失破解步骤<br>1.service mysqld stop    //把mysql关闭<br>2.mysqld_safe –skip-grant-tables –user=mysql &amp;    //跳过授权表mysql.user和mysql.db来重启mysql<br>3.mysql -uroot;    //登录进mysql<br>4.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update mysql.user set password=password(&quot;123456&quot;) where user=&quot;root&quot; and host=&quot;localhost&quot;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="SQL语句的优化步骤"><a href="#SQL语句的优化步骤" class="headerlink" title="SQL语句的优化步骤"></a>SQL语句的优化步骤</h3><p>一、通过慢查询日志查看效率低的sql语句<br>二、通过explain或者desc解析sql语句(查看是否需要做索引)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">explain select * from table where id = 8\G</span><br><span class="line">desc select * from table where id = 8\G</span><br></pre></td></tr></table></figure></p>
+<p>每一列的简单解释<br>id:1<br>select_type:SIMPLE    //表示select的类型，常见的取值有SIMPLE(简单表，即不使用表连接或者子查询)、PRIMARY(主查询，即外层的查询)、UNION(UNION中的第二个或者后面的查询语句)、SUBQUERY(子查询中的第一个SELECT)等<br>table:stu    //输出结果集的表<br>type:range    //表示表的连接类型，性能由好到查：system(表仅一行)、const(只一行匹配)、eq_ref(对于前面的每一行使用主键和唯一)、ref(同eq_ref，但没有使用主键和唯一索引)、ref_or_null(同前面，对null查询)、index_merge(索引合并优化)、unique_subquery(主键子查询)、index_subquery(非主键子查询)、range(表单中的范围查询)、index(都通过查询索引来得到数据)、all(通过全表扫描得到的数据)<br>possible_keys:name,ind_stu_name    //表查询时可能使用的索引<br>key:name    //表示实际使用的索引<br>key_len:50    //索引字段的长度<br>ref:NULL<br>rows:8    //扫描行的数量<br>Extra:Using where;Using index    //执行情况的说明和描述</p>
+<p>总结：where 和 order by后边的条件字段都可以适当设置索引、分组字段也可以添加索引，避免产生临时表</p>
+<h4 id="对表的优化和检测"><a href="#对表的优化和检测" class="headerlink" title="对表的优化和检测"></a>对表的优化和检测</h4><h5 id="检查一个或多个表是否有错误"><a href="#检查一个或多个表是否有错误" class="headerlink" title="检查一个或多个表是否有错误"></a>检查一个或多个表是否有错误</h5><p>语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CHECK TABLE tb1_name[,tb1_name]...[option]... 	option=&#123;QUICK|FAST|MEDIUM|EXTENDED|CHANGED&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例子（检查a1表是否有错误）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; check table a1;</span><br></pre></td></tr></table></figure></p>
+<h5 id="对损坏或错误的表进行修复"><a href="#对损坏或错误的表进行修复" class="headerlink" title="对损坏或错误的表进行修复"></a>对损坏或错误的表进行修复</h5><p>语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; repair TABLE tb1_name[,tb1_name]...[option]...</span><br></pre></td></tr></table></figure></p>
+<p>例子（修复a1表）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; repair table a1;</span><br></pre></td></tr></table></figure></p>
+<h5 id="定期优化表（找访问较少的时间进行优化，防止影响业务）"><a href="#定期优化表（找访问较少的时间进行优化，防止影响业务）" class="headerlink" title="定期优化表（找访问较少的时间进行优化，防止影响业务）"></a>定期优化表（找访问较少的时间进行优化，防止影响业务）</h5><p>如果已经删除了表的一大部分，或者如果已经对含有可变长度行的表进行了很多的改动，则需要做定期优化。这个命令(optimize)可以将表中的空间碎片进行合并，但是此命令只对myisam、BDB和innobd表起作用。</p>
+<p>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; OPTIMIZE [LOCAL|NO_WRITE_TO_BINLOG] TABLE tb1_name [,tb1_name]</span><br></pre></td></tr></table></figure></p>
+<p>例子(对a1表进行优化)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; optimize table a1;</span><br></pre></td></tr></table></figure></p>
+<h5 id="字段类型选择"><a href="#字段类型选择" class="headerlink" title="字段类型选择"></a>字段类型选择</h5><p>原则：当一个列可以选择多种数据类型时，应该优先考虑数字类型，其次是日期或者二进制类型，最后是字符类型。对于相同级别的数据类型，应该优先选择占用空间小的数据类型。</p>
+<h6 id="信息最好存储为整型的-mysql运行速度快，运算速度快"><a href="#信息最好存储为整型的-mysql运行速度快，运算速度快" class="headerlink" title="信息最好存储为整型的(mysql运行速度快，运算速度快)"></a>信息最好存储为整型的(mysql运行速度快，运算速度快)</h6><p>时间信息可以存储为整型的(时间戳)，用int类型<br>select from_unixstamp(时间戳)  from 表名</p>
+<p>set集合类型 多选：set(‘篮球’,’足球’,’棒球’,’乒乓球’);<br>enum枚举类型 单选： enum(‘男’,’女’,’保密’);<br>推荐使用set和enum类型，内部会通过整型信息参数具体计算、运行。</p>
+<p>ip地址也可以变为整型信息进行存储(mysql内部有算法，把ip变为数字)：<br>mysql： inet_aton(ip)   inet_ntoa(数字)<br>php:      ip2long(ip)       long2ip(数字)</p>
+<h6 id="尽量少的占据存储空间"><a href="#尽量少的占据存储空间" class="headerlink" title="尽量少的占据存储空间"></a>尽量少的占据存储空间</h6><p>tinyint : 0~255                1字节<br>smallint : 0~ 65535            2字节<br>mediumint : 0~1千6百多万    3字节<br>int : 0~40多亿                4字节</p>
+<h6 id="数据的整合最好固定长度"><a href="#数据的整合最好固定长度" class="headerlink" title="数据的整合最好固定长度"></a>数据的整合最好固定长度</h6><p>char    :0~255个字符<br>varchar : 0~65535 字节 看表编码，如果是utf8存2万多汉字 gbk存3万多汉字</p>
+<p>char(长度)<br>固定长度，运行速度快<br>长度：255字符限制<br>varchar(长度)<br>长度不固定，内容比较少要进行部位操作，该类型要保留1-2个字节保存当前数据的长度<br>长度：65535字节限制<br>     存储汉字，例如字符集utf8的(每个汉字占据3个字节)，最多可以存储65535/3-2字节<br>                例如字符集gbk的(每个汉字占据2个字节)，最多可以存储65535/2-2字节</p>
+<p>如存储手机号码：char(11) ，可以选取固定长度的 </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward.jpg" alt="阿东 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward.jpg" alt="阿东 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/08/mysql-commands/" rel="next" title="mysql简单操作">
+                <i class="fa fa-chevron-left"></i> mysql简单操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/16/mysql-partition/" rel="prev" title="mysql-分区技术">
+                mysql-分区技术 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my-avatar.jpg"
+               alt="阿东" />
+          <p class="site-author-name" itemprop="name">阿东</p>
+          <p class="site-description motion-element" itemprop="description">编程、人生。编成我们的人生！</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vonfly" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.meilvlx.com/" title="美旅旅行" target="_blank">美旅旅行</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-SQL语句技巧和优化"><span class="nav-number">1.</span> <span class="nav-text">mysql SQL语句技巧和优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#巧用RAND-提取随机行"><span class="nav-number">1.1.</span> <span class="nav-text">巧用RAND()提取随机行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化group-by语句"><span class="nav-number">1.2.</span> <span class="nav-text">优化group by语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化嵌套查询"><span class="nav-number">1.3.</span> <span class="nav-text">优化嵌套查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库优化"><span class="nav-number">1.3.1.</span> <span class="nav-text">数据库优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MYSQL服务器优化"><span class="nav-number">1.3.2.</span> <span class="nav-text">MYSQL服务器优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#四种字符集问题-统一设置为utf8"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">四种字符集问题(统一设置为utf8)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bin-log日志问题"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">bin log日志问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#slow-log慢查询日志问题"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">slow log慢查询日志问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#socket问题"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">socket问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#root密码丢失"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">root密码丢失</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句的优化步骤"><span class="nav-number">1.4.</span> <span class="nav-text">SQL语句的优化步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对表的优化和检测"><span class="nav-number">1.4.1.</span> <span class="nav-text">对表的优化和检测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#检查一个或多个表是否有错误"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">检查一个或多个表是否有错误</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对损坏或错误的表进行修复"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">对损坏或错误的表进行修复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定期优化表（找访问较少的时间进行优化，防止影响业务）"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">定期优化表（找访问较少的时间进行优化，防止影响业务）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字段类型选择"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">字段类型选择</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#信息最好存储为整型的-mysql运行速度快，运算速度快"><span class="nav-number">1.4.1.4.1.</span> <span class="nav-text">信息最好存储为整型的(mysql运行速度快，运算速度快)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#尽量少的占据存储空间"><span class="nav-number">1.4.1.4.2.</span> <span class="nav-text">尽量少的占据存储空间</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数据的整合最好固定长度"><span class="nav-number">1.4.1.4.3.</span> <span class="nav-text">数据的整合最好固定长度</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿东</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>访问人数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "fb368882a10d4399a647b3100f42dab9",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

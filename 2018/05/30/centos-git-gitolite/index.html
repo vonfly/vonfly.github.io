@@ -1,0 +1,996 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="git,Centos,gitolite," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="编程、人生" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="部署环境：CentOS 6.8x64，git默认使用SSH协议，在服务器上基本上不用怎么配置就能直接使用。但是如果面向团队服务，需要控制权限的话，还是用gitolite方便些。一般来说，配置git服务器的话，需要一台服务器，还需要一个客户端来验证服务器是否搭建成功，而一般开发者基本都只有一台服务器，那就需要这台服务器既作为Git的服务器，又要作为客户端来使用了，下面的教程就是以服务器和客户端都是同">
+<meta name="keywords" content="git,Centos,gitolite">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos+git+gitolite 安装和部署">
+<meta property="og:url" content="https://vonfly.github.io/2018/05/30/centos-git-gitolite/index.html">
+<meta property="og:site_name" content="编程、人生">
+<meta property="og:description" content="部署环境：CentOS 6.8x64，git默认使用SSH协议，在服务器上基本上不用怎么配置就能直接使用。但是如果面向团队服务，需要控制权限的话，还是用gitolite方便些。一般来说，配置git服务器的话，需要一台服务器，还需要一个客户端来验证服务器是否搭建成功，而一般开发者基本都只有一台服务器，那就需要这台服务器既作为Git的服务器，又要作为客户端来使用了，下面的教程就是以服务器和客户端都是同">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://olixffhc0.bkt.clouddn.com/gitolite.jpg">
+<meta property="og:image" content="http://olixffhc0.bkt.clouddn.com/gitolite3.jpg">
+<meta property="og:image" content="http://olixffhc0.bkt.clouddn.com/gitolite4.jpg">
+<meta property="og:image" content="http://olixffhc0.bkt.clouddn.com/gitolite1.jpg">
+<meta property="og:image" content="http://olixffhc0.bkt.clouddn.com/gitolite2.jpg">
+<meta property="og:updated_time" content="2018-08-22T11:54:19.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos+git+gitolite 安装和部署">
+<meta name="twitter:description" content="部署环境：CentOS 6.8x64，git默认使用SSH协议，在服务器上基本上不用怎么配置就能直接使用。但是如果面向团队服务，需要控制权限的话，还是用gitolite方便些。一般来说，配置git服务器的话，需要一台服务器，还需要一个客户端来验证服务器是否搭建成功，而一般开发者基本都只有一台服务器，那就需要这台服务器既作为Git的服务器，又要作为客户端来使用了，下面的教程就是以服务器和客户端都是同">
+<meta name="twitter:image" content="http://olixffhc0.bkt.clouddn.com/gitolite.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://vonfly.github.io/2018/05/30/centos-git-gitolite/"/>
+
+
+
+
+
+  <title> centos+git+gitolite 安装和部署 | 编程、人生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">编程、人生</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">前端 | 后台 | linux</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://vonfly.github.io/2018/05/30/centos-git-gitolite/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="阿东">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/my-avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="编程、人生">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="编程、人生" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                centos+git+gitolite 安装和部署
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T21:39:58+08:00">
+                2018-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2018/05/30/centos-git-gitolite/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>部署环境：CentOS 6.8x64，git默认使用SSH协议，在服务器上基本上不用怎么配置就能直接使用。但是如果面向团队服务，需要控制权限的话，还是用gitolite方便些。一般来说，配置git服务器的话，需要一台服务器，还需要一个客户端来验证服务器是否搭建成功，而一般开发者基本都只有一台服务器，那就需要这台服务器既作为Git的服务器，又要作为客户端来使用了，下面的教程就是以服务器和客户端都是同一台服务器为例的。如果需要服务器和客户端分开的话，只需要将下面列出的服务器端和客户端的操作到相应的机器上操作就可以了。<br><a id="more"></a></p>
+<h2 id="创建git服务器专用账户（服务器端）："><a href="#创建git服务器专用账户（服务器端）：" class="headerlink" title="创建git服务器专用账户（服务器端）："></a>创建git服务器专用账户（服务器端）：</h2><p>1、创建用户git，并设置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# useradd -m -s /bin/bash git</span><br><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# passwd git</span><br></pre></td></tr></table></figure>
+<p>2、切换到git用户，在家目录/home/git下创建安装目录bin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# su - git</span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# mkdir bin</span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# ll</span><br><span class="line">total 24</span><br><span class="line">drwxr-xr-x 3 git  git  4096 Aug 20 10:38 ./</span><br><span class="line">drwxr-xr-x 8 root root 4096 Aug 20 10:36 ../</span><br><span class="line">-rw-r--r-- 1 git  git   220 Apr  3  2012 .bash_logout</span><br><span class="line">-rw-r--r-- 1 git  git  3486 Apr  3  2012 .bashrc</span><br><span class="line">drwxrwxr-x 2 git  git  4096 Aug 20 10:38 bin/</span><br><span class="line">-rw-r--r-- 1 git  git   675 Apr  3  2012 .profile</span><br></pre></td></tr></table></figure>
+<p>3、获取 Gitolite 并安装，gitolite要安装在服务器端，安装之前要保证系统上已经安装了git</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# git clone https://github.com/sitaramc/gitolite</span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# ll</span><br><span class="line">total 28</span><br><span class="line">drwxr-xr-x 4 git  git  4096 Aug 20 10:40 ./</span><br><span class="line">drwxr-xr-x 8 root root 4096 Aug 20 10:36 ../</span><br><span class="line">-rw-r--r-- 1 git  git   220 Apr  3  2012 .bash_logout</span><br><span class="line">-rw-r--r-- 1 git  git  3486 Apr  3  2012 .bashrc</span><br><span class="line">drwxrwxr-x 2 git  git  4096 Aug 20 10:38 bin/</span><br><span class="line">drwxr-xr-x 6 git  git  4096 Aug 20 10:40 gitolite/</span><br><span class="line">-rw-r--r-- 1 git  git   675 Apr  3  2012 .profile</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# gitolite/install -ln</span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# ll</span><br><span class="line">total 28</span><br><span class="line">drwxr-xr-x 4 git  git  4096 Aug 20 10:40 ./</span><br><span class="line">drwxr-xr-x 8 root root 4096 Aug 20 10:36 ../</span><br><span class="line">-rw-r--r-- 1 git  git   220 Apr  3  2012 .bash_logout</span><br><span class="line">-rw-r--r-- 1 git  git  3486 Apr  3  2012 .bashrc</span><br><span class="line">drwxrwxr-x 2 git  git  4096 Aug 20 10:44 bin/</span><br><span class="line">drwxr-xr-x 6 git  git  4096 Aug 20 10:40 gitolite/</span><br><span class="line">-rw-r--r-- 1 git  git   675 Apr  3  2012 .profile</span><br></pre></td></tr></table></figure>
+<h2 id="创建-Gitolite-服务器管理员用户，并创建管理员用户密钥（客户端）："><a href="#创建-Gitolite-服务器管理员用户，并创建管理员用户密钥（客户端）：" class="headerlink" title="创建 Gitolite 服务器管理员用户，并创建管理员用户密钥（客户端）："></a>创建 Gitolite 服务器管理员用户，并创建管理员用户密钥（客户端）：</h2><p>因为我们是在同一台服务器上，直接exit退回到root用户，之后变身为客户端模式，如果客户端和服务器分开的话，不需要exit指令了，直接在客户端执行添加用户的指令就可以了。这里的Gitolite服务器管理员用户名我们叫gitAdmin</p>
+<p>1、创建用户git，并设置密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# useradd -m -s /bin/bash gitAdmin</span><br><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# passwd gitAdmin</span><br></pre></td></tr></table></figure>
+<p>2、切换到gitAdmin用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# su - gitAdmin</span><br><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ ~]# ll</span><br><span class="line">total 24</span><br><span class="line">drwxr-xr-x 3 gitAdmin gitAdmin 4096 Aug 20 10:48 ./</span><br><span class="line">drwxr-xr-x 9 root     root     4096 Aug 20 10:46 ../</span><br><span class="line">-rw-r--r-- 1 gitAdmin gitAdmin  220 Apr  3  2012 .bash_logout</span><br><span class="line">-rw-r--r-- 1 gitAdmin gitAdmin 3486 Apr  3  2012 .bashrc</span><br><span class="line">-rw-r--r-- 1 gitAdmin gitAdmin  675 Apr  3  2012 .profile</span><br><span class="line">drwxrwxr-x 2 gitAdmin gitAdmin 4096 Aug 20 10:48 .ssh/</span><br></pre></td></tr></table></figure>
+<p>3、创建用户密钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ ~]# ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<p>4、将管理员公钥（gitAdmin.pub)复制 到服务器上的 git 用户的家目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ ~]# exit</span><br><span class="line">logout</span><br><span class="line"></span><br><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# cp /home/gitAdmin/.ssh/gitAdmin.pub /home/git/</span><br><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# ll /home/git</span><br><span class="line"></span><br><span class="line">total 36</span><br><span class="line">drwxr-xr-x 4 git  git  4096 Aug 20 10:53 ./</span><br><span class="line">drwxr-xr-x 9 root root 4096 Aug 20 10:46 ../</span><br><span class="line">-rw------- 1 git  git   788 Aug 20 10:45 .bash_history</span><br><span class="line">-rw-r--r-- 1 git  git   220 Apr  3  2012 .bash_logout</span><br><span class="line">-rw-r--r-- 1 git  git  3486 Apr  3  2012 .bashrc</span><br><span class="line">drwxrwxr-x 2 git  git  4096 Aug 20 10:44 bin/</span><br><span class="line">-rw-r--r-- 1 root root  412 Aug 20 10:53 gitAdmin.pub</span><br><span class="line">drwxr-xr-x 6 git  git  4096 Aug 20 10:40 gitolite/</span><br><span class="line">-rw-r--r-- 1 git  git   675 Apr  3  2012 .profile</span><br></pre></td></tr></table></figure>
+<h2 id="配置-Gitolite-服务器（服务器端）："><a href="#配置-Gitolite-服务器（服务器端）：" class="headerlink" title="配置 Gitolite 服务器（服务器端）："></a>配置 Gitolite 服务器（服务器端）：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# su - git</span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# gitolite setup -pk gitAdmin.pub</span><br><span class="line"></span><br><span class="line">Initialized empty Git repository in /home/git/repositories/gitolite-admin.git/</span><br><span class="line">Initialized empty Git repository in /home/git/repositories/testing.git/</span><br><span class="line">WARNING: /home/git/.ssh missing; creating a new one</span><br><span class="line">    (this is normal on a brand new install)</span><br><span class="line">WARNING: /home/git/.ssh/authorized_keys missing; creating a new one</span><br><span class="line">    (this is normal on a brand new install)</span><br><span class="line"></span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# ll</span><br><span class="line"></span><br><span class="line">total 60</span><br><span class="line">drwxr-xr-x 7 git  git  4096 Aug 20 10:57 ./</span><br><span class="line">drwxr-xr-x 9 root root 4096 Aug 20 10:46 ../</span><br><span class="line">-rw------- 1 git  git   788 Aug 20 10:45 .bash_history</span><br><span class="line">-rw-r--r-- 1 git  git   220 Apr  3  2012 .bash_logout</span><br><span class="line">-rw-r--r-- 1 git  git  3486 Apr  3  2012 .bashrc</span><br><span class="line">drwxrwxr-x 2 git  git  4096 Aug 20 10:44 bin/</span><br><span class="line">-rw-r--r-- 1 root root  412 Aug 20 10:53 gitAdmin.pub</span><br><span class="line">drwxr-xr-x 6 git  git  4096 Aug 20 10:40 gitolite/</span><br><span class="line">drwx------ 6 git  git  4096 Aug 20 10:57 .gitolite/</span><br><span class="line">-rw------- 1 git  git  6662 Aug 20 10:57 .gitolite.rc</span><br><span class="line">-rw-r--r-- 1 git  git   675 Apr  3  2012 .profile</span><br><span class="line">-rw------- 1 git  git    12 Aug 20 10:57 projects.list</span><br><span class="line">drwx------ 4 git  git  4096 Aug 20 10:57 repositories/</span><br><span class="line">drwx------ 2 git  git  4096 Aug 20 10:57 .ssh/</span><br></pre></td></tr></table></figure>
+<h2 id="验证Gitolite管理员账户访问服务器的别名以及验证别名是否成功（客户端）："><a href="#验证Gitolite管理员账户访问服务器的别名以及验证别名是否成功（客户端）：" class="headerlink" title="验证Gitolite管理员账户访问服务器的别名以及验证别名是否成功（客户端）："></a>验证Gitolite管理员账户访问服务器的别名以及验证别名是否成功（客户端）：</h2><p>1、切换到gitAdmin账户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]# exit</span><br><span class="line">logout</span><br><span class="line">[root@iZbp1c8ppw4ox72sq8z6hkZ ~]# su - gitAdmin</span><br><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ ~]# ll .ssh/</span><br><span class="line"></span><br><span class="line">total 16</span><br><span class="line">drwxrwxr-x 2 gitAdmin gitAdmin 4096 Aug 20 10:49 ./</span><br><span class="line">drwxr-xr-x 3 gitAdmin gitAdmin 4096 Aug 20 10:53 ../</span><br><span class="line">-rw------- 1 gitAdmin gitAdmin 1679 Aug 20 10:49 gitAdmin</span><br><span class="line">-rw-r--r-- 1 gitAdmin gitAdmin  412 Aug 20 10:49 gitAdmin.pub</span><br><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ ~]# vi .ssh/config</span><br></pre></td></tr></table></figure>
+<p>2、在.ssh文件夹下新建config文件，输入下面内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">host git</span><br><span class="line">        user git</span><br><span class="line">        hostname xxx.xxx.xxx.xxx</span><br><span class="line">        port 22</span><br><span class="line">        identityfile ~/.ssh/gitAdmin</span><br></pre></td></tr></table></figure>
+<p>host： 随便定义，用于客户端标识所连接服务端的名字；<br>user ：随便定义<br>hostname ：服务器主机名，或者直接填写服务器 IP 地址；<br>port：服务器的ssh访问端口，默认22；<br>identityfile ：管理员登录服务器所使用的验证密钥；</p>
+<p>3、使用服务器别名从 Gitolite 服务器 clone Gitolite 服务器管理仓库 gitolite-admin ，验证别名配置是否成功，以下表示已经clone成功了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ ~]# git clone git@git:gitolite-admin</span><br><span class="line"></span><br><span class="line">Cloning into &apos;gitolite-admin&apos;...</span><br><span class="line">The authenticity of host &apos;xxx.xxx.xxx.xxx (xxx.xxx.xxx.xxx)&apos; can&apos;t be established.</span><br><span class="line">ECDSA key fingerprint is c1:c2:6a:7a:68:c8:e5:a6:87:f4:9b:95:d5:fd:ff:09.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? yes</span><br><span class="line">Warning: Permanently added &apos;xxx.xxx.xxx.xxx&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">remote: Counting objects: 6, done.</span><br><span class="line">remote: Compressing objects: 100% (4/4), done.</span><br><span class="line">Receiving objects: 100% (6/6), 763 bytes, done.</span><br><span class="line">remote: Total 6 (delta 0), reused 0 (delta 0)</span><br></pre></td></tr></table></figure>
+<h2 id="添加新项目以及分配权限（客户端）："><a href="#添加新项目以及分配权限（客户端）：" class="headerlink" title="添加新项目以及分配权限（客户端）："></a>添加新项目以及分配权限（客户端）：</h2><p>1、先登录进入客户端，查看家目录对应文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ ~]# ll -a</span><br><span class="line"></span><br><span class="line">total 40</span><br><span class="line">drwx------  4 gitadmin gitadmin 4096 May 24 09:18 .</span><br><span class="line">drwxr-xr-x. 8 root     root     4096 May 22 14:48 ..</span><br><span class="line">-rw-------  1 gitadmin gitadmin 2818 May 31 00:32 .bash_history</span><br><span class="line">-rw-r--r--  1 gitadmin gitadmin   18 Mar 23  2017 .bash_logout</span><br><span class="line">-rw-r--r--  1 gitadmin gitadmin  176 Mar 23  2017 .bash_profile</span><br><span class="line">-rw-r--r--  1 gitadmin gitadmin  124 Mar 23  2017 .bashrc</span><br><span class="line">-rw-rw-r--  1 gitadmin gitadmin   53 May 20 20:49 .gitconfig</span><br><span class="line">drwxr-xr-x  5 gitadmin gitadmin 4096 May 20 20:26 gitolite-admin</span><br><span class="line">drwx------  2 gitadmin gitadmin 4096 May 20 20:26 .ssh</span><br><span class="line">-rw-------  1 gitadmin gitadmin  789 May 24 09:18 .viminfo</span><br></pre></td></tr></table></figure>
+<p>2、进入gitolite-admin目录，该目录就是管理项目和权限目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ ~]# cd gitolite-admin</span><br><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ gitolite-admin]$ ll</span><br><span class="line"></span><br><span class="line">total 8</span><br><span class="line">drwxrwxr-x 2 gitadmin gitadmin 4096 May 24 09:18 conf</span><br><span class="line">drwxrwxr-x 2 gitadmin gitadmin 4096 May 22 16:32 keydir</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ gitolite-admin]$ ll keydir/</span><br><span class="line">total 20</span><br><span class="line">-rw-rw-r-- 1 gitadmin gitadmin 390 May 20 22:48 bijiben.pub</span><br><span class="line">-rw-r--r-- 1 root     root     401 May 22 16:32 company.pub</span><br><span class="line">-rw-rw-r-- 1 gitadmin gitadmin 414 May 20 20:26 gitadmin.pub</span><br><span class="line">-rw-r--r-- 1 root     root     410 May 22 15:23 test.pub</span><br><span class="line">-rw-rw-r-- 1 gitadmin gitadmin 397 May 20 23:23 xiaoming.pub</span><br><span class="line"></span><br><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ gitolite-admin]$ ll conf/</span><br><span class="line">total 4</span><br><span class="line">-rw-rw-r-- 1 gitadmin gitadmin 146 May 24 09:18 gitolite.conf</span><br></pre></td></tr></table></figure>
+<p>keydir目录就是放密钥的，公司员工在自己电脑生成密钥，然后给到管理员上传到该目录，分配对应项目权限即可，员工自己配置别名克隆项目就好了</p>
+<p>conf目录是配置项目以及分配权限的目录</p>
+<p>3、打开gitolite.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[gitAdmin@iZbp1c8ppw4ox72sq8z6hkZ gitolite-admin]$ vim conf/gitolite.conf</span><br></pre></td></tr></table></figure>
+<p>如图所示：<br><img src="http://olixffhc0.bkt.clouddn.com/gitolite.jpg" alt="打开后"></p>
+<p>上面的配置含义是：</p>
+<p>定义一个用户组： user</p>
+<p>定义三个版本库： gitolite-admin 、testing 和 shop</p>
+<p>项目gitolite-admin只有gitadmin用户才有权限操作</p>
+<p>项目testing表示所有用户都可以进行操作</p>
+<p>用户组成员对项目shop有（读 写 删除）RW+ 权限</p>
+<p>一个组中有多个用户，则以空格为分割</p>
+<p>4、每次修改这两个目录需要提交修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[gitadmin@iZbp1c8ppw4ox72sq8z6hkZ gitolite-admin]$ git add .</span><br><span class="line">[gitadmin@iZbp1c8ppw4ox72sq8z6hkZ gitolite-admin]$ git status</span><br><span class="line">[gitadmin@iZbp1c8ppw4ox72sq8z6hkZ gitolite-admin]$ git commit -m &quot;test&quot;</span><br><span class="line">[gitadmin@iZbp1c8ppw4ox72sq8z6hkZ gitolite-admin]$ git push origin master</span><br></pre></td></tr></table></figure>
+<p>至此已经完成了</p>
+<h2 id="（扩展）windows下克隆项目"><a href="#（扩展）windows下克隆项目" class="headerlink" title="（扩展）windows下克隆项目"></a>（扩展）windows下克隆项目</h2><p>1、生成对应密钥，并上传到客户端<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure></p>
+<p>2、创建config文件，并配置别名<br>如图所示：<br><img src="http://olixffhc0.bkt.clouddn.com/gitolite3.jpg" alt="如图所示"><br><img src="http://olixffhc0.bkt.clouddn.com/gitolite4.jpg" alt="如图所示"></p>
+<p>然后直接输入下边命令克隆即可（如果你的账户有权限包括git其他命令也可以使用、git push origin master等等）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@bijiben:testing</span><br></pre></td></tr></table></figure>
+<p>如果我还有其他的git服务器也要提交项目代码怎么办？很简单，生成多一个密钥，指定对应别名，如上图我还要对github.com网站上的项目进行提交代码，所以我就多生成一个密钥，在本地项目重新指定即可<br>假设我本地原本已经有了<a href="https://github.com/vonfly/vonfly.github.io.git这个项目了，只不过之前的密钥给删除了，或者覆盖了，我如何重新进行关联呢？" target="_blank" rel="noopener">https://github.com/vonfly/vonfly.github.io.git这个项目了，只不过之前的密钥给删除了，或者覆盖了，我如何重新进行关联呢？</a></p>
+<p>首先先在登录你github账户上，在本地找到 github.pub文件，用编辑器打开，复制其中的全部内容。<br>登陆你的GitHub账户，依次点击账号Settings &gt; SSH and GPG keys &gt; new SSH key，把github.<br>pub中的内容拷贝进去key项，title项随意填 。</p>
+<p>至此就已经配置完SSH-Key了</p>
+<p>然后本地执行下边代码进行重新关联</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote rm origin</span><br><span class="line">git remote add origin git@github:vonfly/vonfly.github.io.git</span><br></pre></td></tr></table></figure>
+<p>之后就可以执行git的提交和更新等操作了</p>
+<h2 id="（扩展）使用git钩子完善完美的git服务器（暂时不知道怎么描述，因为有很多也不是很懂）："><a href="#（扩展）使用git钩子完善完美的git服务器（暂时不知道怎么描述，因为有很多也不是很懂）：" class="headerlink" title="（扩展）使用git钩子完善完美的git服务器（暂时不知道怎么描述，因为有很多也不是很懂）："></a>（扩展）使用git钩子完善完美的git服务器（暂时不知道怎么描述，因为有很多也不是很懂）：</h2><p>1、首先，我们切换到gitadmin 用户（客户端），来到gitolite-admin/conf/目录下，在gitolite.conf中添加一个新的仓库，名字为：dong-admin</p>
+<p>vim编辑后如下图<br><img src="http://olixffhc0.bkt.clouddn.com/gitolite1.jpg" alt="编辑后"></p>
+<p>操作步骤如下图<br><img src="http://olixffhc0.bkt.clouddn.com/gitolite2.jpg" alt="编辑后"></p>
+<p>2、切换到git用户（服务端）,进入repositories目录，已经有了dong-admin.git</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ ~]$ cd repositories/</span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ repositories]$ ll</span><br><span class="line">total 16</span><br><span class="line">drwx------ 7 git git 4096 May 31 20:56 dong-admin.git</span><br><span class="line">drwx------ 8 git git 4096 May 31 20:56 gitolite-admin.git</span><br><span class="line">drwx------ 7 git git 4096 May 31 20:56 shop.git</span><br><span class="line">drwx------ 7 git git 4096 May 31 20:56 testing.git</span><br></pre></td></tr></table></figure>
+<p>我们查看一下dong-admin.git目录里都有什么：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ repositories]$ cd dong-admin.git/</span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ dong-admin.git]$ ll</span><br><span class="line">total 36</span><br><span class="line">drwx------ 2 git git 4096 May 31 20:56 branches</span><br><span class="line">-rw------- 1 git git   66 May 31 20:56 config</span><br><span class="line">-rw------- 1 git git   73 May 31 20:56 description</span><br><span class="line">-rw------- 1 git git    0 May 31 20:56 git-daemon-export-ok</span><br><span class="line">-rw------- 1 git git  123 May 31 20:56 gl-conf</span><br><span class="line">-rw------- 1 git git   23 May 31 20:56 HEAD</span><br><span class="line">drwx------ 2 git git 4096 May 31 20:56 hooks</span><br><span class="line">drwx------ 2 git git 4096 May 31 20:56 info</span><br><span class="line">drwx------ 4 git git 4096 May 31 20:56 objects</span><br><span class="line">drwx------ 4 git git 4096 May 31 20:56 refs</span><br></pre></td></tr></table></figure>
+<p>别的目录都不要管，可以看到有个hooks目录，继续查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ dong-admin.git]$ cd hooks/</span><br><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ hooks]$ ll</span><br><span class="line">total 44</span><br><span class="line">-rwx------ 1 git git  452 May 31 20:56 applypatch-msg.sample</span><br><span class="line">-rwx------ 1 git git  896 May 31 20:56 commit-msg.sample</span><br><span class="line">-rwx------ 1 git git  160 May 31 20:56 post-commit.sample</span><br><span class="line">-rwx------ 1 git git  548 May 31 20:56 post-receive.sample</span><br><span class="line">-rwx------ 1 git git  189 May 31 20:56 post-update.sample</span><br><span class="line">-rwx------ 1 git git  398 May 31 20:56 pre-applypatch.sample</span><br><span class="line">-rwx------ 1 git git 1578 May 31 20:56 pre-commit.sample</span><br><span class="line">-rwx------ 1 git git 1239 May 31 20:56 prepare-commit-msg.sample</span><br><span class="line">-rwx------ 1 git git 4951 May 31 20:56 pre-rebase.sample</span><br><span class="line">lrwxrwxrwx 1 git git   39 May 31 20:56 update -&gt; /home/git/.gitolite/hooks/common/update</span><br><span class="line">-rwx------ 1 git git 3611 May 31 20:56 update.sample</span><br></pre></td></tr></table></figure>
+<p>好了，这里就是我们要找的目录了，我们需要在这个目录下创建钩子文件：<br>使用vim 创建一个新文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[git@iZbp1c8ppw4ox72sq8z6hkZ hooks]$</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward.jpg" alt="阿东 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward.jpg" alt="阿东 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/Centos/" rel="tag"># Centos</a>
+          
+            <a href="/tags/gitolite/" rel="tag"># gitolite</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/01/yii-install/" rel="next" title="windows下安装yii">
+                <i class="fa fa-chevron-left"></i> windows下安装yii
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my-avatar.jpg"
+               alt="阿东" />
+          <p class="site-author-name" itemprop="name">阿东</p>
+          <p class="site-description motion-element" itemprop="description">编程、人生。编成我们的人生！</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vonfly" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.meilvlx.com/" title="美旅旅行" target="_blank">美旅旅行</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建git服务器专用账户（服务器端）："><span class="nav-number">1.</span> <span class="nav-text">创建git服务器专用账户（服务器端）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-Gitolite-服务器管理员用户，并创建管理员用户密钥（客户端）："><span class="nav-number">2.</span> <span class="nav-text">创建 Gitolite 服务器管理员用户，并创建管理员用户密钥（客户端）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Gitolite-服务器（服务器端）："><span class="nav-number">3.</span> <span class="nav-text">配置 Gitolite 服务器（服务器端）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证Gitolite管理员账户访问服务器的别名以及验证别名是否成功（客户端）："><span class="nav-number">4.</span> <span class="nav-text">验证Gitolite管理员账户访问服务器的别名以及验证别名是否成功（客户端）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加新项目以及分配权限（客户端）："><span class="nav-number">5.</span> <span class="nav-text">添加新项目以及分配权限（客户端）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（扩展）windows下克隆项目"><span class="nav-number">6.</span> <span class="nav-text">（扩展）windows下克隆项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（扩展）使用git钩子完善完美的git服务器（暂时不知道怎么描述，因为有很多也不是很懂）："><span class="nav-number">7.</span> <span class="nav-text">（扩展）使用git钩子完善完美的git服务器（暂时不知道怎么描述，因为有很多也不是很懂）：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿东</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>访问人数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "fb368882a10d4399a647b3100f42dab9",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

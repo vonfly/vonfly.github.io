@@ -1,0 +1,1027 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="面试,理论知识," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="编程、人生" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本页面主要用于编写一些理论知识，从网上找的或者自己总结的都会有。主要用于自己学习(●’◡’●)">
+<meta name="keywords" content="面试,理论知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="收集、总结的一些PHP理论知识（对于面试有帮助）">
+<meta property="og:url" content="https://vonfly.github.io/2017/02/28/php-knowledge/index.html">
+<meta property="og:site_name" content="编程、人生">
+<meta property="og:description" content="本页面主要用于编写一些理论知识，从网上找的或者自己总结的都会有。主要用于自己学习(●’◡’●)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-22T11:54:19.390Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="收集、总结的一些PHP理论知识（对于面试有帮助）">
+<meta name="twitter:description" content="本页面主要用于编写一些理论知识，从网上找的或者自己总结的都会有。主要用于自己学习(●’◡’●)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://vonfly.github.io/2017/02/28/php-knowledge/"/>
+
+
+
+
+
+  <title> 收集、总结的一些PHP理论知识（对于面试有帮助） | 编程、人生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">编程、人生</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">前端 | 后台 | linux</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://vonfly.github.io/2017/02/28/php-knowledge/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="阿东">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/my-avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="编程、人生">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="编程、人生" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                收集、总结的一些PHP理论知识（对于面试有帮助）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-28T19:43:19+08:00">
+                2017-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/02/28/php-knowledge/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本页面主要用于编写一些理论知识，从网上找的或者自己总结的都会有。主要用于自己学习(●’◡’●)</p>
+<a id="more"></a>
+<h4 id="简述-private、-protected、-public修饰符的访问权限"><a href="#简述-private、-protected、-public修饰符的访问权限" class="headerlink" title="简述 private、 protected、 public修饰符的访问权限"></a>简述 private、 protected、 public修饰符的访问权限</h4><p>private: 私有成员, 在类的内部才可以访问</p>
+<p>protected: 保护成员，该类内部和继承类中可以访问</p>
+<p>public: 公共成员，完全公开，没有访问限制</p>
+<h4 id="面向对象的特征有哪些方面"><a href="#面向对象的特征有哪些方面" class="headerlink" title="面向对象的特征有哪些方面?"></a>面向对象的特征有哪些方面?</h4><p>主要有封装,继承,多态。如果是4个方面则加上：抽象。</p>
+<p>理解：</p>
+<p>1、封装：封装是保证软件部件具有优良的模块性的基础,封装的目标就是要实现软件部件的高内聚,低耦合,防止程序相互依赖性而带来的变动影响</p>
+<p>2、继承：在定义和实现一个类的时候，可以在一个已经存在的类的基础之上来进行，把这个已经存在的类所定义的内容作为自己的内容，并可以加入若干新的内容，或修改原来的方法使之更适合特殊的需要，这就是继承。继承是子类自动共享父类数据和方法的机制，这是类之间的一种关系，提高了软件的可重用性和可扩展性</p>
+<p>3、多态：多态是指程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，即一个引用变量倒底会指向哪个类的实例对象，该引用变量发出的方法调用到底是哪个类中实现的方法，必须在由程序运行期间才能决定。</p>
+<p>4、抽象：抽象就是找出一些事物的相似和共性之处，然后将这些事物归为一个类，这个类只考虑这些事物的相似和共性之处，并且会忽略与当前主题和目标无关的那些方面，将注意力集中在与当前目标有关的方面。例如，看到一只蚂蚁和大象，你能够想象出它们的相同之处，那就是抽象。</p>
+<h4 id="常见的-PHP-安全性攻击"><a href="#常见的-PHP-安全性攻击" class="headerlink" title="常见的 PHP 安全性攻击"></a>常见的 PHP 安全性攻击</h4><p>1、SQL注入：用户利用在表单字段输入SQL语句的方式来影响正常的SQL执行。</p>
+<p>防止：<br>(1)使用mysql_real_escape_string()过滤数据<br>(2)手动检查每一数据是否为正确的数据类型<br>(3)使用预处理语句并绑定变量<br>(4)参数化SQL：是指在设计与数据库链接并访问数据时，在需要填入数值或数据的地方，使用参数 (Parameter) 来给值，用@或？来表示参数。</p>
+<p>2、XSS攻击 ：跨站点脚本攻击，由用户输入一些数据到你的网站，其中包括客户端脚本(通常JavaScript)。如果你没有过滤就输出数据到另一个web页面，这个脚本将被执行。</p>
+<p>防止：为了防止XSS攻击，使用PHP的htmlentities()函数过滤再输出到浏览器。</p>
+<h4 id="抽象类和接口的概念以及区别？"><a href="#抽象类和接口的概念以及区别？" class="headerlink" title="抽象类和接口的概念以及区别？"></a>抽象类和接口的概念以及区别？</h4><p>1、抽象类：它是一种特殊的，不能被实例化的类，只能作为其他类的父类使用。使用abstract关键字声明。<br>2、接口是一种特殊的抽象类，也是一个特殊的类，使用interface声明</p>
+<p>区别：<br>（1）抽象类的操作通过继承关键字extends实现，而接口的使用是通过implements关键字来实现。</p>
+<p>（2）抽象类中有数据成员，可以实现数据的封装，但是接口没有数据成员。</p>
+<p>（3）抽象类中可以有构造方法，但是接口没有构造方法。</p>
+<p>（4）抽象类的方法可以通过private、protected、public关键字修饰（抽象方法不能是private），而接口中的方法只能使用public关键字修饰。</p>
+<p>（5）一个类只能继承于一个抽象类，而一个类可以同时实现多个接口。</p>
+<p>（6）抽象类中可以有成员方法的实现代码，而接口中不可以有成员方法的实现代码。</p>
+<h4 id="什么是构造函数，什么是析构函数，作用是什么？"><a href="#什么是构造函数，什么是析构函数，作用是什么？" class="headerlink" title="什么是构造函数，什么是析构函数，作用是什么？"></a>什么是构造函数，什么是析构函数，作用是什么？</h4><p>1、构造函数（方法）是对象创建完成后第一个被对象自动调用的方法。它存在于每个声明的类中，是一个特殊的成员方法。作用是执行一些初始化的任务。Php中使用__construct()声明构造方法，并且只能声明一个</p>
+<p>2、析构函数（方法）作用和构造方法正好相反，是对象被销毁之前最后一个被对象自动调用的方法。是PHP5中新添加的内容作用是用于实现在销毁一个对象之前执行一些特定的操作，诸如关闭文件和释放内存等。</p>
+<h4 id="如何重载父类的方法，举例说明"><a href="#如何重载父类的方法，举例说明" class="headerlink" title="如何重载父类的方法，举例说明"></a>如何重载父类的方法，举例说明</h4><p>1、重载，即覆盖父类的方法，也就是使用子类中的方法替换从父类中继承的方法，也叫方法的重写。</p>
+<p>2、覆盖父类方法的关键是在子类中创建于父类中相同的方法包括方法的名称、参数和返回值类型。PHP中只要求方法的名称相同即可。</p>
+<h4 id="this和self、parent这三个关键词分别代表什么？在哪些场合下使用？"><a href="#this和self、parent这三个关键词分别代表什么？在哪些场合下使用？" class="headerlink" title="$this和self、parent这三个关键词分别代表什么？在哪些场合下使用？"></a>$this和self、parent这三个关键词分别代表什么？在哪些场合下使用？</h4><p>1、$this 当前对象</p>
+<p>2、self  当前类</p>
+<p>3、parent  当前类的父类</p>
+<p>使用场合：</p>
+<p>$this在当前类中使用,使用-&gt;调用属性和方法。</p>
+<p>self也在当前类中使用，不过需要使用::调用。</p>
+<p>parent在类中使用。</p>
+<h4 id="类中如何定义常量、如何类中调用常量、如何在类外调用常量。"><a href="#类中如何定义常量、如何类中调用常量、如何在类外调用常量。" class="headerlink" title="类中如何定义常量、如何类中调用常量、如何在类外调用常量。"></a>类中如何定义常量、如何类中调用常量、如何在类外调用常量。</h4><p>1、类中的常量也就是成员常量，常量就是不会改变的量，是一个恒值。</p>
+<p>2、定义常量使用关键字const 例如：const PI = 3.1415326;</p>
+<p>如何调用：</p>
+<p>无论是类内还是类外，常量的访问和变量是不一样的，常量不需要实例化对象，<br>访问常量的格式都是类名加作用域操作符号（双冒号）来调用。<br>即：类名 :: 类常量名;</p>
+<h4 id="堆和栈的区别？"><a href="#堆和栈的区别？" class="headerlink" title="堆和栈的区别？"></a>堆和栈的区别？</h4><p>1、栈是编译期间就分配好的内存空间，因此你的代码中必须就栈的大小有明确的定义； </p>
+<p>2、堆是程序运行期间动态分配的内存空间，你可以根据程序的运行情况确定要分配的堆内存的大小。</p>
+<h4 id="请说明php中传值与传引用的区别。什么时候传值什么时候传引用"><a href="#请说明php中传值与传引用的区别。什么时候传值什么时候传引用" class="headerlink" title="请说明php中传值与传引用的区别。什么时候传值什么时候传引用?"></a>请说明php中传值与传引用的区别。什么时候传值什么时候传引用?</h4><p>按值传递：函数范围内对值的任何改变在函数外部都会被忽略</p>
+<p>按引用传递：函数范围内对值的任何改变在函数外部也能反映出这些修改</p>
+<p>优缺点：按值传递时，php必须复制值。特别是对于大型的字符串和对象来说，这将会是一个代价很大的操作。</p>
+<p>按引用传递则不需要复制值，对于性能提高很有好处。</p>
+<h4 id="请举例说明在你的开发过程中用什么方法来加快页面的加载速度"><a href="#请举例说明在你的开发过程中用什么方法来加快页面的加载速度" class="headerlink" title="请举例说明在你的开发过程中用什么方法来加快页面的加载速度"></a>请举例说明在你的开发过程中用什么方法来加快页面的加载速度</h4><p>1、要用到服务器资源时才打开，及时关闭服务器资源<br>2、数据库添加索引<br>3、页面可生成静态<br>4、图片等大文件单独服务器<br>5、使用代码优化工具</p>
+<h4 id="get与post两种方式的区别"><a href="#get与post两种方式的区别" class="headerlink" title="get与post两种方式的区别?"></a>get与post两种方式的区别?</h4><p>1、get从服务器获取数据，post向服务器传送数据</p>
+<p>2、get传值在url中可见，post在url中不可见</p>
+<p>3、get传值一般在2KB以内，post传值大小可以在php.ini中进行设置</p>
+<p>4、get安全性非低，post安全性较高，执行效率却比post高</p>
+<p>建议：<br>1、get式安全性较Post式要差些包含机密信息建议用Post数据提交式；</p>
+<p>2、做数据查询建议用Get式；做数据添加、修改或删除建议用Post方式；</p>
+<h4 id="为什么get比post更快"><a href="#为什么get比post更快" class="headerlink" title="为什么get比post更快"></a>为什么get比post更快</h4><p>1、post请求包含更多的请求头<br>2、post在真正接受数据之前会先将请求头发送给服务器进行确认，然后才真正发送数<br>3、get会将数据缓存起来，而post不会<br>4、post不能进行管道化传输</p>
+<h4 id="Cookie和session的区别，禁止了cookie后session能正常使用吗-session的缺点是什么-session在服务器端是存在哪里的-是共有的还是私有的"><a href="#Cookie和session的区别，禁止了cookie后session能正常使用吗-session的缺点是什么-session在服务器端是存在哪里的-是共有的还是私有的" class="headerlink" title="Cookie和session的区别，禁止了cookie后session能正常使用吗?session的缺点是什么?session在服务器端是存在哪里的?是共有的还是私有的?"></a>Cookie和session的区别，禁止了cookie后session能正常使用吗?session的缺点是什么?session在服务器端是存在哪里的?是共有的还是私有的?</h4><p>答：<br>COOKIE保存在客户端，用户通过手段可以进行修改，不安全，单个cookie允许的最大值是3k。</p>
+<p>而SESSION保存在服务器端，相对比较安全，大小没有限制。</p>
+<p>Session依赖于cookie进行传递。</p>
+<p>禁用了cookie之后session不能正常使用。</p>
+<p>Session的缺点：保存在服务器端，每次读取都从服务器进行读取，对服务器有资源消耗。</p>
+<p>Session保存在服务器端的文件或数据库中，默认保存在文件中，文件路径由php配置文件的session.save_path指定。</p>
+<p>Session文件是公有的。</p>
+<h4 id="写几个魔术方法并说明作用"><a href="#写几个魔术方法并说明作用" class="headerlink" title="写几个魔术方法并说明作用?"></a>写几个魔术方法并说明作用?</h4><p>__call()调用一个不存在的方法的时候调用</p>
+<p>__autoload()在实例化一个尚未被定义的类是会自动调用次方法来加载类文件</p>
+<p>__set()在给未定义的属性赋值的时候调用</p>
+<p>__get()调用未定义的属性时候调用</p>
+<p>__construct()构造方法，实例化类时自动调用的方法</p>
+<p>__destroy()销毁对象时自动调用的方法</p>
+<p>__unset()当对一个未定义变量调用unset()时自动调用的方法</p>
+<p>__isset()当对一个未定义变量调用isset()方法时自动调用的方法</p>
+<p>__clone()克隆一个对象</p>
+<p>__tostring()当输出一个对象时自动调用的方法</p>
+<h4 id="PHP数组排序"><a href="#PHP数组排序" class="headerlink" title="PHP数组排序"></a>PHP数组排序</h4><p>sort() - 以升序对数组排序<br>rsort() - 以降序对数组排序<br>asort() - 根据值，以升序对关联数组进行排序<br>ksort() - 根据键，以升序对关联数组进行排序<br>arsort() - 根据值，以降序对关联数组进行排序<br>krsort() - 根据键，以降序对关联数组进行排序</p>
+<h4 id="数组中下标最好是什么类型的，为什么"><a href="#数组中下标最好是什么类型的，为什么" class="headerlink" title="数组中下标最好是什么类型的，为什么?"></a>数组中下标最好是什么类型的，为什么?</h4><p>数组的下标最好是数字类型的，数字类型的处理速度快</p>
+<h4 id="i和i-哪一个效率高，为什么"><a href="#i和i-哪一个效率高，为什么" class="headerlink" title="++i和i++哪一个效率高，为什么?"></a>++i和i++哪一个效率高，为什么?</h4><p>++i效率比i++的效率更高，因为++i少了一个返回i的过程。</p>
+<h4 id="echo-、print-、print-r-的区别"><a href="#echo-、print-、print-r-的区别" class="headerlink" title="echo()、print()、print_r()的区别?"></a>echo()、print()、print_r()的区别?</h4><p>echo 是php语法，可以输出多个变量，不能输出数组。</p>
+<p>print()是php中的函数，只能输出简单的变量。</p>
+<p>print_r()是php中的函数，可以输出变量也可以输出数组。</p>
+<h4 id="框架中什么是单一入口和多入口，单一入口的优缺点"><a href="#框架中什么是单一入口和多入口，单一入口的优缺点" class="headerlink" title="框架中什么是单一入口和多入口，单一入口的优缺点?"></a>框架中什么是单一入口和多入口，单一入口的优缺点?</h4><p>1、多入口就是通过访问不同的文件来完成用户请求。<br>单一入口只web程序所有的请求都指向一个脚本文件的</p>
+<p>2、单一入口更容易控制权限，方便对http请求可以进行安全性检查。</p>
+<p>缺点：URL看起来不那么美观，特别是对搜索引擎来说不友好。</p>
+<h4 id="提示类型200、404、502是什么意思。"><a href="#提示类型200、404、502是什么意思。" class="headerlink" title="提示类型200、404、502是什么意思。"></a>提示类型200、404、502是什么意思。</h4><p>1、200是请求成功</p>
+<p>2、404是文件未找到</p>
+<p>3、502是服务器内部错误</p>
+<h4 id="include，include-once，require，require-once的区别"><a href="#include，include-once，require，require-once的区别" class="headerlink" title="include，include_once，require，require_once的区别"></a>include，include_once，require，require_once的区别</h4><p>1、include,require在其被调用的位置处包含一个文件。</p>
+<p>2、include_once,require_once函数的作用与include相同，不过它会首先验证是否已包含该文件。如果已经包含，则不再执行include_once。其他同include一样。</p>
+<p>3、require与include最主要的区别，a、require出错时，脚本将停止运行，而include出错的情况下，脚本将继续执行。b、无论require的位置如何，制定文件都将包含到出现require的脚本中。例如，即使require放在计算结果为假的if语句中，依然会包含指定文件。</p>
+<p>4、使用require_once可以解决文件被覆盖的问题。 require_once函数确保文件只包含一次。在遇到require_once后，后面再试图包含相同的文件时将被忽略。</p>
+<h4 id="PHP字符串中单引号与双引号的区别"><a href="#PHP字符串中单引号与双引号的区别" class="headerlink" title="PHP字符串中单引号与双引号的区别?"></a>PHP字符串中单引号与双引号的区别?</h4><p>单引号不能解释变量，而双引号可以解释变量。<br>单引号不能转义字符，在双引号中可以转义字符。</p>
+<h4 id="php中-模板引擎的目的是什么-你用过哪些模板引擎"><a href="#php中-模板引擎的目的是什么-你用过哪些模板引擎" class="headerlink" title="php中,模板引擎的目的是什么? 你用过哪些模板引擎?"></a>php中,模板引擎的目的是什么? 你用过哪些模板引擎?</h4><p>使用模板引擎的目的是使程序的逻辑代码和html界面代码分离开，是程序的结构更清晰。<br>使用过的模板引擎：Smarty、ThinkPHP的ThinkTemplate</p>
+<h4 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h4><p>跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是浏览器施加的安全限制</p>
+<p>解决：<br>1、CORS（跨资源共享）<br>在php接口脚本中加入以下两句即可：<br>header(‘Access-Control-Allow-Origin:*’);//允许所有来源访问<br>header(‘Access-Control-Allow-Method:POST,GET’);//允许访问的方式</p>
+<p>2、JSONP。要注意JSONP只支持GET请求，不支持POST请求</p>
+<h4 id="怎么保证促销商品不会超卖"><a href="#怎么保证促销商品不会超卖" class="headerlink" title="怎么保证促销商品不会超卖"></a>怎么保证促销商品不会超卖</h4><p>第一种方案是：在每次下订单前我们判断促销商品的数量够不够，不够不允许下订单，更改库存量时加上一个条件，只更改商品库存大于0的商品的库存，当时我们使用ab进行压力测试，当并发超过500，访问量超过2000时，还是会出现超卖现象。</p>
+<p>第二种方案是：使用mysql的事务加排他锁来解决，首先我们选择数据库的存储引擎为innoDB，使用的是排他锁实现的，刚开始的时候我们测试了下共享锁，发现还是会出现超卖的现象。有个问题是，当我们进行高并发测试时，对数据库的性能影响很大，导致数据库的压力很大</p>
+<p>第三种方案是：使用文件锁实现。当用户抢到一件促销商品后先触发文件锁，防止其他用户进入，该用户抢到促销品后再解开文件锁，放其他用户进行操作。这样可以解决超卖的问题，但是会导致文件得I/O开销很大。</p>
+<p>最后我们使用了redis的队列来实现。将要促销的商品数量以队列的方式存入redis中，每当用户抢到一件促销商品则从队列中删除一个数据，确保商品不会超卖。这个操作起来很方便，而且效率极高，最终我们采取这种方式来实现</p>
+<h4 id="你对Memcach的理解，优点有哪些"><a href="#你对Memcach的理解，优点有哪些" class="headerlink" title="你对Memcach的理解，优点有哪些?"></a>你对Memcach的理解，优点有哪些?</h4><p>Memcache是一种缓存技术，在一定的时间内将动态网页经过解析之后保存到文件，下次访问时动态网页就直接调用这个文件，而不必在重新访问数据库。使用memcache做缓存的好处是：提高网站的访问速度，减轻高并发时服务器的压力。</p>
+<p>Memcache的优点：稳定、配置简单、多机分布式存储、速度快。</p>
+<h4 id="redis和memcacahe、mongoDB的区别？"><a href="#redis和memcacahe、mongoDB的区别？" class="headerlink" title="redis和memcacahe、mongoDB的区别？"></a>redis和memcacahe、mongoDB的区别？</h4><p>都是非关系型数据库，性能都非常高，但是mongoDB和memcache、redis是不同的两种类型。后两者主要用于数据的缓存，前者主要用在查询和储存大数据方面，是最接近数据库的文档型的非关系数据库。</p>
+<p>1、从数据存储位置上来分，memcache的数据存在内存中，而redis既可以存储在内存中，也可以存储的到磁盘中，达到持久化存储的功能，memcache一旦断电，数据全部丢失，redis可以利用快照和AOF把数据存到磁盘中，当恢复时又从磁盘中读取到内存中，当物理内存使用完毕后，可以把数据写入到磁盘中。</p>
+<p>2、从存储数据的类型上来分，memcache和redis存储的方式都是键值对，只不过redis值的类型比较丰富，有string(字符串),hash(哈希)，list(列表),set(集合)zset(有序集合)，而memcache主要存储的是字符串。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward.jpg" alt="阿东 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward.jpg" alt="阿东 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/理论知识/" rel="tag"># 理论知识</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/28/mysql-knowledge/" rel="next" title="mysql面试（理论）">
+                <i class="fa fa-chevron-left"></i> mysql面试（理论）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/28/php-knowledge1/" rel="prev" title="一些PHP方法">
+                一些PHP方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my-avatar.jpg"
+               alt="阿东" />
+          <p class="site-author-name" itemprop="name">阿东</p>
+          <p class="site-description motion-element" itemprop="description">编程、人生。编成我们的人生！</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vonfly" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.meilvlx.com/" title="美旅旅行" target="_blank">美旅旅行</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#简述-private、-protected、-public修饰符的访问权限"><span class="nav-number">1.</span> <span class="nav-text">简述 private、 protected、 public修饰符的访问权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面向对象的特征有哪些方面"><span class="nav-number">2.</span> <span class="nav-text">面向对象的特征有哪些方面?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的-PHP-安全性攻击"><span class="nav-number">3.</span> <span class="nav-text">常见的 PHP 安全性攻击</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象类和接口的概念以及区别？"><span class="nav-number">4.</span> <span class="nav-text">抽象类和接口的概念以及区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是构造函数，什么是析构函数，作用是什么？"><span class="nav-number">5.</span> <span class="nav-text">什么是构造函数，什么是析构函数，作用是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何重载父类的方法，举例说明"><span class="nav-number">6.</span> <span class="nav-text">如何重载父类的方法，举例说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#this和self、parent这三个关键词分别代表什么？在哪些场合下使用？"><span class="nav-number">7.</span> <span class="nav-text">$this和self、parent这三个关键词分别代表什么？在哪些场合下使用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类中如何定义常量、如何类中调用常量、如何在类外调用常量。"><span class="nav-number">8.</span> <span class="nav-text">类中如何定义常量、如何类中调用常量、如何在类外调用常量。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆和栈的区别？"><span class="nav-number">9.</span> <span class="nav-text">堆和栈的区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请说明php中传值与传引用的区别。什么时候传值什么时候传引用"><span class="nav-number">10.</span> <span class="nav-text">请说明php中传值与传引用的区别。什么时候传值什么时候传引用?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请举例说明在你的开发过程中用什么方法来加快页面的加载速度"><span class="nav-number">11.</span> <span class="nav-text">请举例说明在你的开发过程中用什么方法来加快页面的加载速度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get与post两种方式的区别"><span class="nav-number">12.</span> <span class="nav-text">get与post两种方式的区别?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么get比post更快"><span class="nav-number">13.</span> <span class="nav-text">为什么get比post更快</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie和session的区别，禁止了cookie后session能正常使用吗-session的缺点是什么-session在服务器端是存在哪里的-是共有的还是私有的"><span class="nav-number">14.</span> <span class="nav-text">Cookie和session的区别，禁止了cookie后session能正常使用吗?session的缺点是什么?session在服务器端是存在哪里的?是共有的还是私有的?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写几个魔术方法并说明作用"><span class="nav-number">15.</span> <span class="nav-text">写几个魔术方法并说明作用?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP数组排序"><span class="nav-number">16.</span> <span class="nav-text">PHP数组排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组中下标最好是什么类型的，为什么"><span class="nav-number">17.</span> <span class="nav-text">数组中下标最好是什么类型的，为什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#i和i-哪一个效率高，为什么"><span class="nav-number">18.</span> <span class="nav-text">++i和i++哪一个效率高，为什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#echo-、print-、print-r-的区别"><span class="nav-number">19.</span> <span class="nav-text">echo()、print()、print_r()的区别?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#框架中什么是单一入口和多入口，单一入口的优缺点"><span class="nav-number">20.</span> <span class="nav-text">框架中什么是单一入口和多入口，单一入口的优缺点?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提示类型200、404、502是什么意思。"><span class="nav-number">21.</span> <span class="nav-text">提示类型200、404、502是什么意思。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#include，include-once，require，require-once的区别"><span class="nav-number">22.</span> <span class="nav-text">include，include_once，require，require_once的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP字符串中单引号与双引号的区别"><span class="nav-number">23.</span> <span class="nav-text">PHP字符串中单引号与双引号的区别?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#php中-模板引擎的目的是什么-你用过哪些模板引擎"><span class="nav-number">24.</span> <span class="nav-text">php中,模板引擎的目的是什么? 你用过哪些模板引擎?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是跨域？"><span class="nav-number">25.</span> <span class="nav-text">什么是跨域？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么保证促销商品不会超卖"><span class="nav-number">26.</span> <span class="nav-text">怎么保证促销商品不会超卖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#你对Memcach的理解，优点有哪些"><span class="nav-number">27.</span> <span class="nav-text">你对Memcach的理解，优点有哪些?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis和memcacahe、mongoDB的区别？"><span class="nav-number">28.</span> <span class="nav-text">redis和memcacahe、mongoDB的区别？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿东</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>访问人数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "fb368882a10d4399a647b3100f42dab9",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

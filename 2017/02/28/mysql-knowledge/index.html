@@ -1,0 +1,1053 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql,面试,理论知识," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="编程、人生" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本页面主要用于编写mysql理论知识，有时间多看看巩固一下！">
+<meta name="keywords" content="mysql,面试,理论知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql面试（理论）">
+<meta property="og:url" content="https://vonfly.github.io/2017/02/28/mysql-knowledge/index.html">
+<meta property="og:site_name" content="编程、人生">
+<meta property="og:description" content="本页面主要用于编写mysql理论知识，有时间多看看巩固一下！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-22T11:54:19.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql面试（理论）">
+<meta name="twitter:description" content="本页面主要用于编写mysql理论知识，有时间多看看巩固一下！">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: "",
+      labels: ""
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://vonfly.github.io/2017/02/28/mysql-knowledge/"/>
+
+
+
+
+
+  <title> mysql面试（理论） | 编程、人生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">编程、人生</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">前端 | 后台 | linux</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://vonfly.github.io/2017/02/28/mysql-knowledge/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="阿东">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/my-avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="编程、人生">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="编程、人生" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                mysql面试（理论）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-28T19:43:18+08:00">
+                2017-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/02/28/mysql-knowledge/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本页面主要用于编写mysql理论知识，有时间多看看巩固一下！</p>
+<a id="more"></a>
+<h4 id="什么是事务？及其特性？"><a href="#什么是事务？及其特性？" class="headerlink" title="什么是事务？及其特性？"></a>什么是事务？及其特性？</h4><p>事务：是一系列的数据库操作，是数据库应用的基本逻辑单位</p>
+<p>事务特性：<br>1、原子性：即不可分割性，事务要么全部被执行，要么就全部不被执行。</p>
+<p>2、一致性或可串性：事务的执行使得数据库从一种正确状态转换成另一种正确状态</p>
+<p>3、隔离性：在事务正确提交之前，不允许把该事务对数据的任何改变提供给任何其他事务，</p>
+<p>4、持久性：事务正确提交后，其结果将永久保存在数据库中，即使在事务提交后有了其他故障，事务的处理结果也会得到保存。</p>
+<h4 id="MySQL数据库中的字段类型varchar和char的主要区别是什么-哪种字段的查找效率更高，为什么"><a href="#MySQL数据库中的字段类型varchar和char的主要区别是什么-哪种字段的查找效率更高，为什么" class="headerlink" title="MySQL数据库中的字段类型varchar和char的主要区别是什么?哪种字段的查找效率更高，为什么?"></a>MySQL数据库中的字段类型varchar和char的主要区别是什么?哪种字段的查找效率更高，为什么?</h4><p>1、varchar是变长，节省存储空间，char是固定长度。</p>
+<p>2、char型查找效率更高。因为varchar是非定长，必须先查找长度，然后进行数据的提取，比char定长类型多了一个步骤，所以效率低一些</p>
+<h4 id="MyISAM-和-InnoDB-的基本区别"><a href="#MyISAM-和-InnoDB-的基本区别" class="headerlink" title="MyISAM 和 InnoDB 的基本区别?"></a>MyISAM 和 InnoDB 的基本区别?</h4><p>1、MYISAM不支持外键和事务处理，采用表锁机制，查询速度稍快，数据存储文件有3个</p>
+<p>2、InnoDB支持外键和事务处理，采用行锁机制，查询速度比MYISAM稍慢，数据存储文件只有一个。</p>
+<h4 id="对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题"><a href="#对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题" class="headerlink" title="对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题:"></a>对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题:</h4><p>a) 索引的目的是什么?</p>
+<p>b) 索引对数据库系统的负面影响是什么?</p>
+<p>c) 为数据表建立索引的原则有哪些?</p>
+<p>d) 什么情况下不宜建立索引?</p>
+<p>答：<br>索引的目的：</p>
+<p>1、快速访问数据表中的特定信息，提高检索速度</p>
+<p>2、创建唯一性索引，保证数据库表中每一行数据的唯一性</p>
+<p>3、加速表和表之间的连接</p>
+<p>4、使用分组和排序子句进行数据检索时，可以显著减少查询中分组和排序的时间</p>
+<p>负面影响：创建索引和维护索引需要耗费时间，这个时间随着数据量的增加而增加；索引需要占用物理空间，不光是表需要占用数据空间，每个索引也需要占用物理空间；当对表进行增、删、改的时候索引也要动态维护，这样就降低了数据的维护速度。</p>
+<p>建立索引的原则：</p>
+<p>1、在最频繁使用的、用于缩小查询范围的字段上建立索引</p>
+<p>2、需要排序的字段上建立索引</p>
+<p>什么情况下不宜建立索引：</p>
+<p>1、对于查询中很少涉及的列或者重复值比较多的列，不宜建立索引</p>
+<p>2、对于一些特殊的数据类型，不宜建立索引，比如文本字段(text)等。</p>
+<h4 id="主键、外键和索引的区别"><a href="#主键、外键和索引的区别" class="headerlink" title="主键、外键和索引的区别"></a>主键、外键和索引的区别</h4><p>定义的区别：<br>主键：唯一标识一条记录，不能有重复的，不允许为空</p>
+<p>外键：表的外键是另一表的主键, 外键可以有重复的, 可以是空值</p>
+<p>索引：是对数据库表中一列或多列的值进行排序的一种结构</p>
+<p>作用的区别：<br>主键：用来保证数据完整性</p>
+<p>外键：用来和其他表建立联系用的</p>
+<p>索引：是提高查询排序的速度</p>
+<p>个数的区别：<br>主键：主键只能有一个</p>
+<p>外键：一个表可以有多个外键</p>
+<p>索引：一个表可以有多个唯一索引</p>
+<h4 id="说说对SQL语句优化有哪些方法？"><a href="#说说对SQL语句优化有哪些方法？" class="headerlink" title="说说对SQL语句优化有哪些方法？"></a>说说对SQL语句优化有哪些方法？</h4><p>1、对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p>
+<p>2、应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。</p>
+<p>3、应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：</p>
+<p>select id from t where num is null</p>
+<p>可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：</p>
+<p>select id from t where num=0</p>
+<p>4、应尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描，如：</p>
+<p>select id from t where num=10 or num=20</p>
+<p>可以这样查询：</p>
+<p>select id from t where num=10</p>
+<p>union all</p>
+<p>select id from t where num=20</p>
+<p>5、下面的查询也将导致全表扫描：</p>
+<p>select id from t where name like ‘%abc%’</p>
+<p>若要提高效率，可以考虑全文检索。</p>
+<p>6、in 和 not in 也要慎用，否则会导致全表扫描，如：</p>
+<p>select id from t where num in(1,2,3)</p>
+<p>对于连续的数值，能用 between 就不要用 in 了：</p>
+<p>select id from t where num between 1 and 3</p>
+<p>7、如果在 where 子句中使用参数，也会导致全表扫描。因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时；它必须在编译时进行选择。然而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描：</p>
+<p>select id from t where num=@num</p>
+<p>可以改为强制查询使用索引：</p>
+<p>select id from t with(index(索引名)) where num=@num</p>
+<p>8、应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。如：</p>
+<p>select id from t where num/2=100</p>
+<p>应改为:</p>
+<p>select id from t where num=100*2</p>
+<p>9、应尽量避免在where子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：</p>
+<p>select id from t where substring(name,1,3)=’abc’–name以abc开头的id</p>
+<p>select id from t where datediff(day,createdate,’2005-11-30’)=0–’2005-11-30’生成的id</p>
+<p>应改为:</p>
+<p>select id from t where name like ‘abc%’</p>
+<p>select id from t where createdate&gt;=’2005-11-30’ and createdate&lt;’2005-12-1’</p>
+<p>10、不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</p>
+<p>11、在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</p>
+<p>12、不要写一些没有意义的查询，如需要生成一个空表结构：<br>select col1,col2 into #t from t where 1=0<br>这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样：<br>create table #t(…)</p>
+<p>13、很多时候用 exists 代替 in 是一个好的选择：<br>select num from a where num in(select num from b)<br>用下面的语句替换：<br>select num from a where exists(select 1 from b where num=a.num)</p>
+<p>14、并不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。</p>
+<p>15、索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</p>
+<p>16、应尽可能的避免更新 clustered 索引数据列，因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</p>
+<p>17、尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。</p>
+<p>18、尽可能的使用 varchar/nvarchar 代替 char/nchar ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</p>
+<p>19、任何地方都不要使用 select <em> from t ，用具体的字段列表代替“</em>”，不要返回用不到的任何字段。</p>
+<p>20、尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限（只有主键索引）。</p>
+<p>21、避免频繁创建和删除临时表，以减少系统表资源的消耗。</p>
+<p>22、临时表并不是不可使用，适当地使用它们可以使某些例程更有效，例如，当需要重复引用大型表或常用表中的某个数据集时。但是，对于一次性事件，最好使用导出表。</p>
+<p>23、在新建临时表时，如果一次性插入数据量很大，那么可以使用 select into 代替 create table，避免造成大量 log ，以提高速度；如果数据量不大，为了缓和系统表的资源，应先create table，然后insert。</p>
+<p>24、如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 truncate table ，然后 drop table ，这样可以避免系统表的较长时间锁定。</p>
+<p>25、尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</p>
+<p>26、使用基于游标的方法或临时表方法之前，应先寻找基于集的解决方案来解决问题，基于集的方法通常更有效。</p>
+<p>27、与临时表一样，游标并不是不可使用。对小型数据集使用 FAST_FORWARD 游标通常要优于其他逐行处理方法，尤其是在必须引用几个表才能获得所需的数据时。在结果集中包括“合计”的例程通常要比使用游标执行的速度快。如果开发时间允许，基于游标的方法和基于集的方法都可以尝试一下，看哪一种方法的效果更好。</p>
+<p>28、在所有的存储过程和触发器的开始处设置 SET NOCOUNT ON ，在结束时设置 SET NOCOUNT OFF 。无需在执行存储过程和触发器的每个语句后向客户端发送 DONE_IN_PROC 消息。</p>
+<p>29、尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。</p>
+<p>30、尽量避免大事务操作，提高系统并发能力。</p>
+<h4 id="web应用中-数据库的读取频率远高于写入频率-如何优化MySQL而应对此种情景"><a href="#web应用中-数据库的读取频率远高于写入频率-如何优化MySQL而应对此种情景" class="headerlink" title="web应用中,数据库的读取频率远高于写入频率, 如何优化MySQL而应对此种情景 ?"></a>web应用中,数据库的读取频率远高于写入频率, 如何优化MySQL而应对此种情景 ?</h4><p>1、使用memcache缓存技术，将动态数据缓存到文件，访问动态页面时直接调用缓存文件，而不必重新访问数据库，这样就减少了查询数据库的次数。</p>
+<p>2、如果网站的访问量很大，可以把数据库读写服务器分开，使用多态服务器去处理数据库查询，使用较少的服务器去处理数据库的写入和修改。</p>
+<p>3、页面静态化</p>
+<h4 id="MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年-怎么优化？"><a href="#MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年-怎么优化？" class="headerlink" title="MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年,怎么优化？"></a>MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年,怎么优化？</h4><p>1、设计良好的数据库结构，允许部分数据冗余，尽量避免join查询，提高效率。</p>
+<p>2、选择合适的表字段数据类型和存储引擎，适当的添加索引。</p>
+<p>3、mysql库主从读写分离。</p>
+<p>4、找规律分表，减少单表中的数据量提高查询速度。</p>
+<p>5、添加缓存机制，比如memcached，apc等。</p>
+<p>6、不经常改动的页面，生成静态页面。</p>
+<p>7、书写高效率的SQL。比如 SELECT * FROM TABEL 改为 SELECT field_1, field_2, field_3 FROM TABLE</p>
+<h4 id="写出三种以上MySQL数据库存储引擎的名称"><a href="#写出三种以上MySQL数据库存储引擎的名称" class="headerlink" title="写出三种以上MySQL数据库存储引擎的名称"></a>写出三种以上MySQL数据库存储引擎的名称</h4><p>MyISAM、InnoDB、BDB（Berkeley DB）、Merge、Memory（Heap）、Example、Federated、Archive、CSV、Blackhole、MaxDB 等等十几个引擎</p>
+<h4 id="指出以下代码片段中的SQL注入漏洞以及解决方法-magic-quotes-gpc-off"><a href="#指出以下代码片段中的SQL注入漏洞以及解决方法-magic-quotes-gpc-off" class="headerlink" title="指出以下代码片段中的SQL注入漏洞以及解决方法(magic_quotes_gpc = off)"></a>指出以下代码片段中的SQL注入漏洞以及解决方法(magic_quotes_gpc = off)</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_query(<span class="string">"select id,title from content where catid='&#123;$_GET[catid]&#125;' and title like '%$_GET[keywords]%'"</span>, $link);</span><br></pre></td></tr></table></figure>
+<p>注入漏洞主要存在用户提交的数据上，这里的注入漏洞主要是$_GET[catid]和$_GET[keyword]</p>
+<p>解决注入漏洞：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$_GET[catid]=intval($_GET[catid]);</span><br><span class="line"></span><br><span class="line">$sql=<span class="string">"select id,title from content where catid='&#123;$_GET[catid]&#125;' and title like '%$_GET[keywords]%"</span>;</span><br><span class="line"></span><br><span class="line">$sql=addslashes($sql);</span><br><span class="line"></span><br><span class="line">mysql_query($sql);</span><br></pre></td></tr></table></figure></p>
+<h4 id="SQL语言包括哪几部分？每部分都有哪些操作关键字？"><a href="#SQL语言包括哪几部分？每部分都有哪些操作关键字？" class="headerlink" title="SQL语言包括哪几部分？每部分都有哪些操作关键字？"></a>SQL语言包括哪几部分？每部分都有哪些操作关键字？</h4><p>答：SQL语言包括数据定义(DDL)、数据操纵(DML),数据控制(DCL)和数据查询（DQL）四个部分。</p>
+<p>数据定义：Create Table,Alter Table,Drop Table, Craete/Drop Index等</p>
+<p>数据操纵：select ,insert,update,delete,</p>
+<p>数据控制：grant,revoke</p>
+<p>数据查询：select</p>
+<h4 id="什么是锁？"><a href="#什么是锁？" class="headerlink" title="什么是锁？"></a>什么是锁？</h4><p>1、数据库是一个多用户使用的共享资源。当多个用户并发地存取数据时，在数据库中就会产生多个事务同时存取同一数据的情况。若对并发操作不加控制就可能会读取和存储不正确的数据，破坏数据库的一致性。</p>
+<p>2、加锁是实现数据库并发控制的一个非常重要的技术。当事务在对某个数据对象进行操作前，先向系统发出请求，对其加锁。加锁后事务就对该数据对象有了一定的控制，在该事务释放锁之前，其他的事务不能对此数据对象进行更新操作。</p>
+<p>3、基本锁类型：锁包括行级锁和表级锁</p>
+<h4 id="完整性约束包括哪些？"><a href="#完整性约束包括哪些？" class="headerlink" title="完整性约束包括哪些？"></a>完整性约束包括哪些？</h4><p>1、数据完整性(Data Integrity)是指数据的精确(Accuracy)和可靠性(Reliability)。<br>(1) 实体完整性：规定表的每一行在表中是惟一的实体。<br>(2) 域完整性：是指表中的列必须满足某种特定的数据类型约束，其中约束又包括取值范围、精度等规定。<br>(3) 参照完整性：是指两个表的主关键字和外关键字的数据应一致，保证了表之间的数据的一致性，防止了数据丢失或无意义的数据在数据库中扩散。<br>(4) 用户定义的完整性：不同的关系数据库系统根据其应用环境的不同，往往还需要一些特殊的约束条件。用户定义的完整性即是针对某个特定关系数据库的约束条件，它反映某一具体应用必须满足的语义要求。</p>
+<p>2、与表有关的约束：包括列约束(NOT NULL（非空约束）)和表约束(PRIMARY KEY、foreign key、check、UNIQUE) 。</p>
+<h4 id="什么叫视图？游标是什么？"><a href="#什么叫视图？游标是什么？" class="headerlink" title="什么叫视图？游标是什么？"></a>什么叫视图？游标是什么？</h4><p>1、视图是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，视图通常是有一个表或者多个表的行或列的子集。对视图的修改不影响基本表。它使得我们获取数据更容易，相比多表查询。</p>
+<p>2、游标：是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
+<h4 id="试述视图的优点？"><a href="#试述视图的优点？" class="headerlink" title="试述视图的优点？"></a>试述视图的优点？</h4><p>1、视图能够简化用户的操作</p>
+<p>2、视图使用户能以多种角度看待同一数据</p>
+<p>3、视图为数据库提供了一定程度的逻辑独立性</p>
+<p>4、视图能够对机密数据提供安全保护。</p>
+<h4 id="什么是存储过程？用什么来调用？"><a href="#什么是存储过程？用什么来调用？" class="headerlink" title="什么是存储过程？用什么来调用？"></a>什么是存储过程？用什么来调用？</h4><p>1、存储过程是一个预编译的SQL语句，优点是允许模块化的设计，就是说只需创建一次，以后在该程序中就可以调用多次。如果某次操作需要执行多次SQL，使用存储过程比单纯SQL语句执行要快。</p>
+<p>2、可以用一个命令对象来调用存储过程。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward.jpg" alt="阿东 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward.jpg" alt="阿东 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/理论知识/" rel="tag"># 理论知识</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/26/server-build-svn/" rel="next" title="搭建SVN服务器">
+                <i class="fa fa-chevron-left"></i> 搭建SVN服务器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/28/php-knowledge/" rel="prev" title="收集、总结的一些PHP理论知识（对于面试有帮助）">
+                收集、总结的一些PHP理论知识（对于面试有帮助） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/my-avatar.jpg"
+               alt="阿东" />
+          <p class="site-author-name" itemprop="name">阿东</p>
+          <p class="site-description motion-element" itemprop="description">编程、人生。编成我们的人生！</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/vonfly" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.meilvlx.com/" title="美旅旅行" target="_blank">美旅旅行</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是事务？及其特性？"><span class="nav-number">1.</span> <span class="nav-text">什么是事务？及其特性？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL数据库中的字段类型varchar和char的主要区别是什么-哪种字段的查找效率更高，为什么"><span class="nav-number">2.</span> <span class="nav-text">MySQL数据库中的字段类型varchar和char的主要区别是什么?哪种字段的查找效率更高，为什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyISAM-和-InnoDB-的基本区别"><span class="nav-number">3.</span> <span class="nav-text">MyISAM 和 InnoDB 的基本区别?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题"><span class="nav-number">4.</span> <span class="nav-text">对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主键、外键和索引的区别"><span class="nav-number">5.</span> <span class="nav-text">主键、外键和索引的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#说说对SQL语句优化有哪些方法？"><span class="nav-number">6.</span> <span class="nav-text">说说对SQL语句优化有哪些方法？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web应用中-数据库的读取频率远高于写入频率-如何优化MySQL而应对此种情景"><span class="nav-number">7.</span> <span class="nav-text">web应用中,数据库的读取频率远高于写入频率, 如何优化MySQL而应对此种情景 ?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年-怎么优化？"><span class="nav-number">8.</span> <span class="nav-text">MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年,怎么优化？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写出三种以上MySQL数据库存储引擎的名称"><span class="nav-number">9.</span> <span class="nav-text">写出三种以上MySQL数据库存储引擎的名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指出以下代码片段中的SQL注入漏洞以及解决方法-magic-quotes-gpc-off"><span class="nav-number">10.</span> <span class="nav-text">指出以下代码片段中的SQL注入漏洞以及解决方法(magic_quotes_gpc = off)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL语言包括哪几部分？每部分都有哪些操作关键字？"><span class="nav-number">11.</span> <span class="nav-text">SQL语言包括哪几部分？每部分都有哪些操作关键字？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是锁？"><span class="nav-number">12.</span> <span class="nav-text">什么是锁？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整性约束包括哪些？"><span class="nav-number">13.</span> <span class="nav-text">完整性约束包括哪些？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫视图？游标是什么？"><span class="nav-number">14.</span> <span class="nav-text">什么叫视图？游标是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#试述视图的优点？"><span class="nav-number">15.</span> <span class="nav-text">试述视图的优点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是存储过程？用什么来调用？"><span class="nav-number">16.</span> <span class="nav-text">什么是存储过程？用什么来调用？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿东</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i>访问人数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i>总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "fb368882a10d4399a647b3100f42dab9",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
