@@ -1,9 +1,10 @@
 ---
-title: ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+title: mysql问题ERROR 1205
 date: 2016-09-01 19:43:18
 tags: [mysql]
 categories: mysql
 ---
+
 ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
 
 mysql被锁住了
