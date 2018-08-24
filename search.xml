@@ -215,6 +215,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[phpstorm 编辑器的使用技巧]]></title>
+    <url>%2F2016%2F05%2F18%2Fphpstorm-use-skills%2F</url>
+    <content type="text"><![CDATA[phpstorm 编辑器的使用技巧 一些常用快捷键(默认配置)1、快速查找文件ctrl+shift+n 2、最近打开的文件，进行输入文件名搜索(Recent Files)ctrl+e 3、优化导入的类和包(如移除没有用到的命名空间)ctrl+alt+o 项目命名空间设置 断点调试设置1、检测本地php环境是否安装了Xdebug在本地输出phpinfo()；搜索Xdebug;如下图： 如果没有安装，安装操作Xdebug如下：将phpinfo();的信息(浏览器中右键查看源代码 -&gt; ctrl+a -&gt; ctrl+c)全部输入网址： (http://xdebug.org/wizard.php) 中的框，得到适配的xdebug版本，按照下图中操作进行。 2、安装好Xdebug之后，配置本地的php.ini。添加配置如下，如需添加其他Xdebug配置，可以查看phpinfo中xdebug配置，根据情况自己添加。 zend_extension=”D:\phpStudy\PHPTutorial\php\php-5.6.27-nts\ext\php_xdebug.dll”xdebug.remote_enable=1xdebug.remote_handler=dbgpxdebug.remote_mode=reqxdebug.remote_host=localhostxdebug.remote_port=9000xdebug.idekey=”PHPSTORM” 说明：zend_extension的值根据自己的本地环境填写xdebug.remote_port默认值为9000，这里需要跟phpstorm配置一致。phpstorm中的Debug默认配置也为9000(File-&gt;Settings-&gt;Languages &amp; Frameworks-&gt;PHP-&gt;Debug)然后重启服务 3、配置phpstorm]]></content>
+      <categories>
+        <category>phpstorm</category>
+      </categories>
+      <tags>
+        <tag>phpstorm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[多台电脑共同管理hexo博客]]></title>
     <url>%2F2016%2F02%2F18%2Fhexo-version-control%2F</url>
     <content type="text"><![CDATA[使用hexo搭建博客，如果换了电脑怎么更新博客？如果你有备份源文件那还好，但是每次都要备份感觉太麻烦了。这里介绍一种方法就是使用github分支。一个分支用来存放Hexo生成的网站原始的文件，另一个分支用来存放生成的静态网页。 有博客源文件时，博客源文件我们放到hexo分支上先删除主题文件下的.git文件，可以直接删除或者执行下面的命令 1$ rm -rf .git 然后在本地博客文件夹下边依次输入以下指令(部分指令因为有提示可以自己修改下) 123456$ git init$ git checkout -b hexo$ git remote add origin git@github.com:vonfly（你自己giuhub账号名）/vonfly.github.io（项目名）.git$ git add .$ git commit -m "提交说明"$ git push origin hexo 执行到这里我们就已经把本地的源文件添加到了分支hexo上。 从github分支上拉取博客源文件1234$ git clone -b hexo git@github.com:vonfly/vonfly.github.io$ npm install // 安装需要的包$ hexo generate // 生成静态文件$ hexo server -p 3000 // 本地服务测试查看 我的.gitignore文件内容为.DS_StoreThumbs.dbdb.json.lognode_modules/public/.deploy/ 当然你也可以把node_modules/去掉，这样在另外的电脑克隆下来的项目就不用在运行上面的命令了 扩展： github常见操作和常见错误！如果输入$ git remote add origin git@github.com:vonfly（github帐号名）/vonfly.github.io（项目名）.git提示出错信息：fatal: remote origin already exists. 解决办法如下： 1、先输入$ git remote rm origin 2、再输入$ git remote add origin git@github.com:vonfly/vonfly.github.io.git 就不会报错了！ 如果输入$ git remote rm origin 还是报错的话，error: Could not remove config section ‘remote.origin’. 我们需要修改gitconfig文件的内容4、找到你的github的安装路径，我的是C:\Users\ASUS\AppData\Local\GitHub\PortableGit_ca477551eeb4aea0e4ae9fcd3358bd96720bb5c8\etc5、找到一个名为gitconfig的文件，打开它把里面的[remote “origin”]那一行删掉就好了！ 如果输入$ git push origin master提示出错信息：error:failed to push som refs to …….解决办法如下： 1、先输入$ git pull origin master //先把远程服务器github上面的文件拉下来 2、再输入$ git push origin master 3、如果出现报错 fatal: Couldn’t find remote ref master或者fatal: ‘origin’ does not appear to be a git repository以及fatal: Could not read from remote repository. 4、则需要重新输入$ git remote add origin git@github.com:vonfly/vonfly.github.io.git]]></content>
@@ -233,8 +244,8 @@
         <category>命令</category>
       </categories>
       <tags>
-        <tag>命令使用</tag>
         <tag>hexo</tag>
+        <tag>命令使用</tag>
       </tags>
   </entry>
   <entry>
