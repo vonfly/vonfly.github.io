@@ -443,9 +443,9 @@
       <category term="命令" scheme="https://vonfly.github.io/categories/%E5%91%BD%E4%BB%A4/"/>
     
     
-      <category term="命令使用" scheme="https://vonfly.github.io/tags/%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/"/>
-    
       <category term="git" scheme="https://vonfly.github.io/tags/git/"/>
+    
+      <category term="命令使用" scheme="https://vonfly.github.io/tags/%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8/"/>
     
   </entry>
   
